@@ -12,7 +12,17 @@
     chars: string[];
   }
 
-  const theColors = ["#cefbe4", "#81ec72", "#5cd646", "#54d13c", "#4ccc32", "#43c728"];
+  const theColors = [
+    "#D3FBE7ff",
+    "#81ec72ff",
+    "#5cd646ff",
+    "#54d13cee",
+    "#4ccc32ba",
+    "#4ccc329a",
+    "#43c72878",
+    "#43c72858",
+    "#43c72838",
+  ];
   const shadowColor = "#94f475";
 
   let canvas: HTMLCanvasElement,
@@ -34,7 +44,7 @@
     }
     return {
       posX: Math.floor(Math.random() * canvas.width),
-      posY: -100 - Math.random() * 400,
+      posY: -100 - Math.random() * 800,
       speed: Math.floor(Math.random() * 6) + 4,
       fontSize: Math.floor(Math.random() * 12) + 14,
       chars: chars,
@@ -55,17 +65,26 @@
           case 1:
             context.fillStyle = theColors[1];
             break;
-          case 3:
+          case 4:
             context.fillStyle = theColors[2];
             break;
-          case 7:
+          case 8:
             context.fillStyle = theColors[3];
             break;
-          case 13:
+          case 15:
             context.fillStyle = theColors[4];
             break;
-          case 17:
+          case 19:
             context.fillStyle = theColors[5];
+            break;
+          case 23:
+            context.fillStyle = theColors[5];
+            break;
+          case 26:
+            context.fillStyle = theColors[6];
+            break;
+          case 29:
+            context.fillStyle = theColors[7];
             break;
         }
         context.fillText(strip.chars[j], strip.posX, y);
@@ -108,8 +127,8 @@
     // context.globalCompositeOperation = "lighter";
     resizeCanvas();
     lastT = 0;
-    stripHeight = 21;
-    stripCount = Math.floor(canvas.width / 24);
+    stripHeight = 32;
+    stripCount = Math.floor(canvas.width / 28);
     strips = [];
 
     for (let i = 0; i < stripCount; i++) {
