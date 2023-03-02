@@ -109,7 +109,7 @@
     resizeCanvas();
     lastT = 0;
     stripHeight = 21;
-    stripCount = Math.floor(canvas.width / 30);
+    stripCount = Math.floor(canvas.width / 24);
     strips = [];
 
     for (let i = 0; i < stripCount; i++) {
@@ -127,9 +127,5 @@
 </script>
 
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight on:resize={resizeCanvas} />
-<canvas
-  id="matrix-canvas"
-  bind:this={canvas}
-  class={$$props.class}
-  style:transform="translateY({offset}px)"
-/>
+<canvas bind:this={canvas} class={$$props.class} />
+<!-- style:transform="translateY({offset}px)" -->

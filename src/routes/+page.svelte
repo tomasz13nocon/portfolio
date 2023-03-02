@@ -50,15 +50,7 @@
   let scrollY = 0;
   let scr = spring(0);
   $: $scr = scrollY;
-
-  let testCanvas: HTMLCanvasElement;
-  onMount(() => {
-    testCanvas.width = 300;
-    testCanvas.height = 300;
-    let ctx = testCanvas.getContext("2d") as CanvasRenderingContext2D;
-    ctx.fillStyle = "purple";
-    ctx?.fillRect(0, 0, 200, 200);
-  });
+  let innerWidth: number, innerHeight: number;
 </script>
 
 <svelte:head>
@@ -72,11 +64,18 @@
   />
 </svelte:head>
 
-<svelte:window bind:scrollY />
+<svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
+<svelte:body class="overflow-hidden relative" />
 
-<!-- <Matrix class="absolute -z-10" /> -->
+<Matrix class="absolute -z-10" />
+<!-- <div class="absolute -z-10 w-full h-screen"> -->
+<!--   <Canvas> -->
+<!--     <Scene {scrollY} width={innerWidth} height={innerHeight} /> -->
+<!--   </Canvas> -->
+<!-- </div> -->
+
 <section
-  class="text-left text-white drop-shadow-[0_0_5px_#94f475] flex flex-col justify-center gap-4 my-64 px-48 py-12 backdrop-blur shadow-[0_0_8px_black]"
+  class="text-shadow-green text-left text-white flex flex-col justify-center gap-4 my-64 px-48 py-12 backdrop-blur shadow-[0_0_8px_black]"
 >
   <noscript>
     <h1 class="text-3xl">Tomasz Nocoń;</h1>
@@ -88,50 +87,16 @@
   {/if}
 </section>
 
-<section class="border-t-2 border-white text-center pt-16 bg-bg">
+<section class="border-t-2 border-white text-center pt-16 bg-bg h-screen ">
   <h2>Skillset</h2>
   <!-- <h3>Expertise</h3> -->
   <!-- <h3>Familiarity</h3> -->
 </section>
 
-<div class="relative flex flex-[0.8] h-[800px]">
-  <Canvas>
-    <T.OrthographicCamera args={[-1, 1, 1, -1, 0, 1]}>
-      <OrbitControls maxPolarAngle={degToRad(80)} enableZoom={false} target={{ y: 0.5 }} />
-    </T.OrthographicCamera>
-
-    <T.DirectionalLight castShadow position={[3, 10, 10]} />
-    <T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />
-    <T.AmbientLight intensity={0.2} />
-
-    <Scene {scrollY} canvasTex={testCanvas} />
-    <!-- Cube -->
-    <T.Group scale={$scale}>
-      <T.Mesh position.y={0.5} castShadow let:ref>
-        <!-- Add interaction -->
-        <InteractiveObject
-          object={ref}
-          interactive
-          on:pointerenter={() => ($scale = 2)}
-          on:pointerleave={() => ($scale = 1)}
-        />
-
-        <T.BoxGeometry />
-        <T.MeshStandardMaterial color="red" />
-      </T.Mesh>
-    </T.Group>
-
-    <!-- Floor -->
-    <T.Mesh receiveShadow rotation.x={degToRad(-90)}>
-      <T.CircleGeometry args={[3.4, 72]} />
-      <T.MeshStandardMaterial color="white" />
-    </T.Mesh>
-  </Canvas>
-</div>
-
-<canvas bind:this={testCanvas} />
-
 <a href="qwe">qwe</a>
 
 <style>
+  .text-shadow-green {
+    text-shadow: 0 0 10px #94f475;
+  }
 </style>
