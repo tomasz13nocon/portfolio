@@ -9,7 +9,6 @@
     posY: number;
     speed: number;
     fontSize: number;
-    height: number;
     chars: string[];
   }
 
@@ -30,6 +29,7 @@
     context: CanvasRenderingContext2D,
     lastT: number,
     stripCount: number,
+    stripHeight: number,
     strips: Strip[],
     rafId: number;
 
@@ -39,55 +39,51 @@
 
   function initStrip() {
     let chars = [];
-    let height = Math.random() * 20 + 25;
-    for (let i = 0; i < height; i++) {
+    for (let i = 0; i < stripHeight; i++) {
       chars[i] = randomizeChar();
     }
     return {
       posX: Math.floor(Math.random() * canvas.width),
-      posY: -100 - Math.random() * 1200,
+      posY: -100 - Math.random() * 800,
       speed: Math.floor(Math.random() * 6) + 4,
-      fontSize: Math.floor(Math.random() * 16) + 14,
-      height,
-      chars,
+      fontSize: Math.floor(Math.random() * 12) + 14,
+      chars: chars,
     };
   }
 
   function drawStrip(strip: Strip, dt: number) {
     let y = strip.posY;
-    for (let j = 0; j < strip.height; j++) {
-      if (Math.random() < 0.0005 * dt) {
+    for (let j = 0; j < stripHeight; j++) {
+      if (Math.random() < 0.0008 * dt) {
         strip.chars[j] = randomizeChar();
       }
       if (context.fillText) {
         switch (j) {
           case 0:
             context.fillStyle = theColors[0];
-            // context.shadowBlur = 18;
             break;
           case 1:
             context.fillStyle = theColors[1];
-            // context.shadowBlur = 8;
             break;
-          case 7:
+          case 4:
             context.fillStyle = theColors[2];
             break;
-          case 11:
+          case 8:
             context.fillStyle = theColors[3];
             break;
-          case 17:
+          case 15:
             context.fillStyle = theColors[4];
+            break;
+          case 19:
+            context.fillStyle = theColors[5];
             break;
           case 23:
             context.fillStyle = theColors[5];
             break;
-          case 28:
-            context.fillStyle = theColors[5];
-            break;
-          case 33:
+          case 26:
             context.fillStyle = theColors[6];
             break;
-          case 37:
+          case 29:
             context.fillStyle = theColors[7];
             break;
         }
@@ -110,7 +106,7 @@
       context.textBaseline = "top";
       context.textAlign = "center";
 
-      if (strip.posY > canvas.height + (strip.fontSize + 4) * strip.height) {
+      if (strip.posY > canvas.height + (strip.fontSize + 4) * stripHeight) {
         strips[i] = initStrip();
         strip.posY = -100;
       }
@@ -122,8 +118,8 @@
   }
 
   function resizeCanvas() {
-    canvas.width = canvas.clientWidth; //canvas.parentElement!.clientWidth;
-    canvas.height = canvas.clientHeight; //canvas.parentElement!.clientHeight;
+    canvas.width = canvas.parentElement!.clientWidth;
+    canvas.height = canvas.parentElement!.clientHeight;
   }
 
   onMount(() => {
@@ -131,6 +127,7 @@
     // context.globalCompositeOperation = "lighter";
     resizeCanvas();
     lastT = 0;
+    stripHeight = 32;
     stripCount = Math.floor(canvas.width / 28);
     strips = [];
 

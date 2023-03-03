@@ -87,8 +87,8 @@
     let dt = t - lastT;
     // clear the canvas and set the properties
     context.clearRect(0, 0, canvas.width, canvas.height);
-    // context.shadowBlur = 8;
-    // context.shadowColor = shadowColor;
+    context.shadowBlur = 8;
+    context.shadowColor = shadowColor;
 
     for (let i = 0; i < stripCount; i++) {
       let strip = strips[i];
