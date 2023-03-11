@@ -7,6 +7,7 @@ module.exports = {
   overrides: [{ files: ["*.svelte"], processor: "svelte3/svelte3" }],
   settings: {
     "svelte3/typescript": () => require("typescript"),
+    // "svelte3/ignore-warnings": ({ code }) => code === "security-anchor-rel-noreferrer",
   },
   parserOptions: {
     sourceType: "module",
@@ -19,5 +20,6 @@ module.exports = {
   },
   rules: {
     "@typescript-eslint/no-non-null-assertion": "off",
+    // semi: ["error", "never"],
   },
 };

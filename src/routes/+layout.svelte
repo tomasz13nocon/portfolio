@@ -10,9 +10,7 @@
     <slot />
   </main>
 
-  <footer>
-    <p>Footer</p>
-  </footer>
+  <footer />
 </div>
 
 <style>

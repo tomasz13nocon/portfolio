@@ -56,24 +56,24 @@
   function drawStrip(strip: Strip, dt: number) {
     let y = strip.posY;
     for (let j = 0; j < strip.height; j++) {
-      if (Math.random() < 0.0005 * dt) {
+      if (Math.random() < 0.0003 * dt) {
         strip.chars[j] = randomizeChar();
       }
       if (context.fillText) {
         switch (j) {
           case 0:
             context.fillStyle = theColors[0];
-            // context.shadowBlur = 18;
+            context.shadowBlur = 8;
             break;
           case 1:
             context.fillStyle = theColors[1];
-            // context.shadowBlur = 8;
             break;
           case 7:
             context.fillStyle = theColors[2];
             break;
           case 11:
             context.fillStyle = theColors[3];
+            context.shadowBlur = 0;
             break;
           case 17:
             context.fillStyle = theColors[4];
@@ -131,7 +131,7 @@
     // context.globalCompositeOperation = "lighter";
     resizeCanvas();
     lastT = 0;
-    stripCount = Math.floor(canvas.width / 28);
+    stripCount = Math.floor(canvas.width / 26);
     strips = [];
 
     for (let i = 0; i < stripCount; i++) {
@@ -141,13 +141,8 @@
     rafId = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(rafId);
   });
-
-  // afterUpdate(() => console.log("hey"));
-
-  let scrollY: number, innerWidth: number, innerHeight: number;
-  $: offset = scrollY * 0.5;
 </script>
 
-<svelte:window bind:scrollY bind:innerWidth bind:innerHeight on:resize={resizeCanvas} />
+<svelte:window on:resize={resizeCanvas} />
 <canvas bind:this={canvas} class={$$props.class} />
 <!-- style:transform="translateY({offset}px)" -->
