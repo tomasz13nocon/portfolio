@@ -42,6 +42,7 @@ module.exports = {
       },
       screens: {
         xs: "360px",
+        cardbp: "1280px",
       },
     },
   },

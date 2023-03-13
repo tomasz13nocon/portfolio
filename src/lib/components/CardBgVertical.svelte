@@ -20,10 +20,11 @@
   let g2 = g / cosT;
 
   let imgH = 200;
+  const uid = Math.random(); // For 1 in every 18 quintillion users this UI will break.
 </script>
 
 {#if img}
-  <!-- <div class="w-full h-full absolute inset-0" style:background-image="url({img})" style:clip-path="url(#vertical-clip)"></div> -->
+  <!-- <div class="w-full h-full absolute inset-0" style:background-image="url({img})" style:clip-path="url(#clip-{uid})"></div> -->
   <svg
     viewBox="0 0 {w} {h}"
     fill="none"
@@ -31,7 +32,7 @@
     class={`${$$props.class} absolute`}
   >
     <defs>
-      <clipPath id="vertical-clip">
+      <clipPath id="clip-{uid}">
         <path
           d="M{p+c} {p} h {sw} l {c} {c}
           v {sh} l {-c} {c} v {sh} l {c} {c} v {sh}
@@ -40,7 +41,7 @@
           "
         />
       </clipPath>
-      <linearGradient id="vertical-gradient" x2="0%" y2="100%">
+      <linearGradient id="gradient-{uid}" x2="0%" y2="100%">
         <stop offset="0%" stop-color="#0F0F0EFF" />
         <stop offset="40%" stop-color="#0F0F0ECC" />
         <stop offset="65%" stop-color="#0F0F0E99" />
@@ -50,16 +51,16 @@
       y={h - p - imgH}
       width={w}
       height={imgH}
-      clip-path="url(#vertical-clip)"
+      clip-path="url(#clip-{uid})"
       href={img}
       preserveAspectRatio="xMidYMid slice"
     />
-    <rect y={h - p - imgH} width={w} height={imgH} clip-path="url(#vertical-clip)" fill="url(#vertical-gradient)" />
+    <rect y={h - p - imgH} width={w} height={imgH} clip-path="url(#clip-{uid})" fill="url(#gradient-{uid})" />
   </svg>
 {/if}
 
 <svg viewBox="0 0 {w} {h}"
-  filter="url(#shadow)"
+  filter="url(#shadow-{uid})"
   class={$$props.class}
 >
   <g
@@ -116,7 +117,7 @@
     stroke={color}
   >
     <path
-      fill="url(#gradient)"
+      fill="url(#green-gradient-{uid})"
       d="M{p} {p+c+sh+g2} l {c-g} {c-g}
       v {sh-2*(g2-g)}
       l {-(c-g)} {c-g}
@@ -124,14 +125,14 @@
     />
     <path
       transform="rotate(180 {w-p} {h*0.5})"
-      fill="url(#gradient)"
+      fill="url(#green-gradient-{uid})"
       d="M{w-p} {p+c+sh+g2} l {c-g} {c-g}
       v {sh-2*(g2-g)}
       l {-(c-g)} {c-g}
       Z"
     />
     <!-- <path -->
-    <!--   fill="url(#gradient)" -->
+    <!--   fill="url(#green-gradient-{uid})" -->
     <!--   d="M{w-p} {p+c+sh+g2} l {-(c-g)} {c-g} -->
     <!--   v {sh-2*(g2-g)} -->
     <!--   l {c-g} {c-g} -->
@@ -141,10 +142,10 @@
     <!-- <path stroke="skyblue" d="M{p+c-g} {p+c+sh+c} v {g2-g} h {g} v {-g2+g}" /> -->
   </g>
   <defs>
-    <filter id="shadow">
-      <feDropShadow dx=0 dy=0 stdDeviation="3.0" flood-color={color} />
+    <filter id="shadow-{uid}">
+      <feDropShadow dx=0 dy=0 stdDeviation="4.0" flood-color={color} />
     </filter>
-    <linearGradient id="gradient">
+    <linearGradient id="green-gradient-{uid}">
       <stop stop-color="#184218" />
       <stop offset="0.911458" stop-color="#007900" />
     </linearGradient>

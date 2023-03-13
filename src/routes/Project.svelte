@@ -22,8 +22,7 @@
     rotateY = 0,
     deg = 0,
     innerWidth: number,
-    innerHeight: number,
-    verticalOrSmallScreen: boolean;
+    innerHeight: number;
 
   let mouseMovedProjects = (e: MouseEvent) => {
     mx = e.clientX;
@@ -41,7 +40,7 @@
   const verticalCardWidth = 320; // Mutating this breaks CardBgVertical
   let verticalCardHeight = 350;
 
-  $: verticalOrSmallScreen = vertical || innerWidth < 1024; // 1216
+  $: verticalOrSmallScreen = vertical || innerWidth < 1280; // 1216
   $: if (contentDiv && verticalOrSmallScreen) {
     innerWidth;
     verticalCardHeight = verticalCardWidth * (contentDiv.offsetHeight / contentDiv.offsetWidth);
@@ -56,49 +55,51 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div
-  class="{verticalOrSmallScreen
-    ? 'w-full sm:w-[38rem] inline-block min-h-[38rem]'
-    : 'h-[calc(0.48046875_*_76rem)]'}
-    text-pri-1 relative card whitespace-normal"
+  class="{vertical
+    ? 'cardbp:w-1/2 inline-block cardbp:min-h-[36rem] cardbp:-mt-[3.5rem]'
+    : 'cardbp:h-[calc(0.48046875_*_76rem)]'}
+    w-full text-pri-1 relative card"
   style:transform="rotate3d({rotateX}, {rotateY}, 0, {deg}deg)"
 >
-  {#if verticalOrSmallScreen}
-    {#key verticalCardHeight}
-      <CardBgVertical
-        {animate}
-        class="absolute"
-        w={verticalCardWidth}
-        h={verticalCardHeight}
-        {img}
-        log={name === "Star Wars Media Timeline"}
-      />
-    {/key}
-  {:else}
-    <CardBg {animate} class="absolute w-[76rem] h-[calc(0.48046875_*_76rem)]" {img} />
+  {#key verticalCardHeight}
+    <CardBgVertical
+      {animate}
+      class="absolute {vertical ? '' : 'cardbp:hidden'}"
+      w={verticalCardWidth}
+      h={verticalCardHeight}
+      {img}
+      log={name === "Star Wars Media Timeline"}
+    />
+  {/key}
+  {#if !vertical}
+    <CardBg
+      {animate}
+      class="absolute w-[76rem] h-[calc(0.48046875_*_76rem)] hidden cardbp:block"
+      {img}
+    />
   {/if}
   <div
     bind:this={contentDiv}
-    class="h-full z-10 relative {vertical ? 'p-20' : 'px-14 py-20'}
-    {img ? 'pb-60' : ''} flex flex-col justify-between"
+    class="h-full z-10 relative {vertical ? '' : 'cardbp:px-14 cardbp:py-20'} px-[12%] py-[13%]
+    {img ? 'pb-60xx' : ''} flex flex-col justify-between  md:max-xl:drop-shadow-[1px_1px_4px_black]"
   >
     <div>
       <h3 class="text-4xl sm:text-5xl font-bold">{name}</h3>
       {#if featured}
         <div
-          class="mt-2 w-fit relative text-pri-6 before:bg-sec-0 before:border-2 before:border-sec-2 before:skew-x-[15deg] before:content-[''] before:block before:absolute before:w-full before:h-full before:-z-10"
+          class="mt-2 w-fit relative font-bold text-pri-6 before:bg-sec-0 before:border-2 before:border-sec-2 before:skew-x-[15deg] before:content-[''] before:block before:absolute before:w-full before:h-full before:-z-10"
         >
-          <div class=" px-4 py-1">Featured</div>
+          <div class="px-4 py-1">Featured</div>
         </div>
       {/if}
-      <p class="{verticalOrSmallScreen ? '' : 'w-[60%]'} mt-8">
+      <p class="{vertical ? '' : 'cardbp:w-[63%]'} mt-8">
         <slot />
-        <br />
       </p>
       {#if more}
         <a href="/{more}" class="w-fit block mt-4">READ MORE</a>
       {/if}
     </div>
-    <div class={vertical ? "my-12" : ""}>
+    <div class="my-16 cardbp:my-8">
       <div class="inline-block text-sm">TECH STACK:</div>
       <ul class="inline-flex gap-4">
         {#each stack as tech}

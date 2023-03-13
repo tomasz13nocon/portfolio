@@ -12,6 +12,8 @@
   $: if (animate && mounted) {
     animateTag.beginElement();
   }
+
+  const uid = Math.random(); // For 1 in every 18 quintillion users this UI will break.
 </script>
 
 {#if img}
@@ -24,12 +26,12 @@
     class={`${$$props.class} absolute right-0`}
   >
     <defs>
-      <clipPath id="clip">
+      <clipPath id="clip-{uid}">
         <path
           d="M294.535 5.5H19.1338L5.50009 19.1337L5.5 212.733L19.1338 226.366H190.919L203.871 233.183L216.823 240H492.224L505.858 226.366L505.858 32.7674L492.224 19.1337H320.439L294.535 5.5Z"
         />
       </clipPath>
-      <linearGradient id="gradient">
+      <linearGradient id="gradient-{uid}">
         <stop offset="0%" stop-color="#0F0F0EFF" />
         <stop offset="30%" stop-color="#0F0F0ECC" />
         <stop offset="55%" stop-color="#0F0F0E99" />
@@ -39,11 +41,17 @@
       x="250"
       width="262"
       height="246"
-      clip-path="url(#clip)"
+      clip-path="url(#clip-{uid})"
       href={img}
       preserveAspectRatio="xMinYMid slice"
     />
-    <rect x="249" width="263" height="246" clip-path="url(#clip)" fill="url(#gradient)" />
+    <rect
+      x="249"
+      width="263"
+      height="246"
+      clip-path="url(#clip-{uid})"
+      fill="url(#gradient-{uid})"
+    />
   </svg>
 {/if}
 
@@ -66,7 +74,7 @@
       letter-spacing: 0.5px;
     }
   </style>
-  <g filter="url(#filter0_d_51_11)">
+  <g filter="url(#filter0_d_51_11-{uid})">
     <path
       d="M294.535 5.5H19.1338L5.50009 19.1337L5.5 212.733L19.1338 226.366H190.919L203.871 233.183L216.823 240H492.224L505.858 226.366L505.858 32.7674L492.224 19.1337H320.439L294.535 5.5Z"
       stroke="#007900"
@@ -95,12 +103,12 @@
     />
     <path
       d="M479.272 5.5L487.452 13.6802H322.484L306.805 5.5H479.272Z"
-      fill="url(#paint0_linear_51_11)"
+      fill="url(#paint0_linear_51_11-{uid})"
       stroke="#007900"
     />
     <path
       d="M32.7674 240L24.5872 231.82H189.555L205.234 240H32.7674Z"
-      fill="url(#paint1_linear_51_11)"
+      fill="url(#paint1_linear_51_11-{uid})"
       stroke="#007900"
     />
   </g>
@@ -110,7 +118,7 @@
   <text x="217" y="233" class="text2">通量电容器率</text>
   <defs>
     <filter
-      id="filter0_d_51_11"
+      id="filter0_d_51_11-{uid}"
       x="0"
       y="0"
       width="511.358"
@@ -133,7 +141,7 @@
       <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_51_11" result="shape" />
     </filter>
     <linearGradient
-      id="paint0_linear_51_11"
+      id="paint0_linear_51_11-{uid}"
       x1="397.129"
       y1="5.5"
       x2="397.129"
@@ -144,7 +152,7 @@
       <stop offset="0.911458" stop-color="#007900" />
     </linearGradient>
     <linearGradient
-      id="paint1_linear_51_11"
+      id="paint1_linear_51_11-{uid}"
       x1="114.911"
       y1="231.82"
       x2="114.911"
