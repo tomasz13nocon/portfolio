@@ -6,8 +6,8 @@
 <section class="home-section [perspective:1000px]">
   <!-- on:mousemove={mouseMovedProjects} -->
   <!-- bind:this={section} -->
-  <div class=" w-[76rem] mx-auto">
-    <h2 class="text-7xl pb-16 text-center">Projects</h2>
+  <div class="w-full xl:w-[76rem] mx-auto">
+    <h2 class="home-section-title">Projects</h2>
 
     <div class="flex flex-col gap-16">
       <Project
@@ -67,8 +67,8 @@
       </Project>
     </div>
 
-    <h2 class="text-7xl pt-16 text-center">More Projects</h2>
-    <h4 class="text-center pt-6 pb-16 text-lg">Older or unfinished projects</h4>
+    <h2 class="home-section-title mb-6 mt-16">More Projects</h2>
+    <h4 class="text-center mb-16 px-4 text-lg">Older or unfinished projects</h4>
 
     <Project
       name="Ultrakino"

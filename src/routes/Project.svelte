@@ -22,7 +22,8 @@
     rotateY = 0,
     deg = 0,
     innerWidth: number,
-    innerHeight: number;
+    innerHeight: number,
+    verticalOrSmallScreen: boolean;
 
   let mouseMovedProjects = (e: MouseEvent) => {
     mx = e.clientX;
@@ -37,26 +38,31 @@
   let animate = true;
 
   let contentDiv: HTMLElement;
-  let verticalCardWidth = 320;
+  const verticalCardWidth = 320; // Mutating this breaks CardBgVertical
   let verticalCardHeight = 350;
-  onMount(() => {
-    if (vertical) {
-      verticalCardHeight = verticalCardWidth * (contentDiv.offsetHeight / contentDiv.offsetWidth);
-      // verticalCardHeight = 300;
-      console.log(verticalCardHeight);
+
+  $: verticalOrSmallScreen = vertical || innerWidth < 1024; // 1216
+  $: if (contentDiv && verticalOrSmallScreen) {
+    innerWidth;
+    verticalCardHeight = verticalCardWidth * (contentDiv.offsetHeight / contentDiv.offsetWidth);
+    if (name === "Star Wars Media Timeline") {
+      console.log(contentDiv.offsetWidth, contentDiv.offsetHeight);
+      console.log(contentDiv.offsetHeight / contentDiv.offsetWidth);
     }
-  });
+    // verticalCardHeight = contentDiv.offsetHeight;
+  }
 </script>
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div
-  class="{vertical
-    ? 'w-[38rem] inline-block min-h-[38rem]'
-    : 'h-[calc(0.48046875_*_76rem)]'} text-pri-1 relative card whitespace-normal"
+  class="{verticalOrSmallScreen
+    ? 'w-full sm:w-[38rem] inline-block min-h-[38rem]'
+    : 'h-[calc(0.48046875_*_76rem)]'}
+    text-pri-1 relative card whitespace-normal"
   style:transform="rotate3d({rotateX}, {rotateY}, 0, {deg}deg)"
 >
-  {#if vertical}
+  {#if verticalOrSmallScreen}
     {#key verticalCardHeight}
       <CardBgVertical
         {animate}
@@ -64,6 +70,7 @@
         w={verticalCardWidth}
         h={verticalCardHeight}
         {img}
+        log={name === "Star Wars Media Timeline"}
       />
     {/key}
   {:else}
@@ -75,7 +82,7 @@
     {img ? 'pb-60' : ''} flex flex-col justify-between"
   >
     <div>
-      <h3 class="text-5xl font-bold">{name}</h3>
+      <h3 class="text-4xl sm:text-5xl font-bold">{name}</h3>
       {#if featured}
         <div
           class="mt-2 w-fit relative text-pri-6 before:bg-sec-0 before:border-2 before:border-sec-2 before:skew-x-[15deg] before:content-[''] before:block before:absolute before:w-full before:h-full before:-z-10"
@@ -83,7 +90,7 @@
           <div class=" px-4 py-1">Featured</div>
         </div>
       {/if}
-      <p class="{vertical ? '' : 'w-[60%]'} mt-8">
+      <p class="{verticalOrSmallScreen ? '' : 'w-[60%]'} mt-8">
         <slot />
         <br />
       </p>

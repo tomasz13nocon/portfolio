@@ -102,7 +102,7 @@
         ) {
           skill = skillsGood[skillsGoodAssigned++];
         } else if (
-          y > (vertical ? iconsStartY + 350 : iconsStartY + 100) &&
+          y > (vertical ? iconsStartY + 450 : iconsStartY + 100) &&
           // y < 550 &&
           x > rightCenter - halfSkillsWidth &&
           x < rightCenter + halfSkillsWidth &&

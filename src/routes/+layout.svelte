@@ -6,7 +6,7 @@
 <div class="flex flex-col min-h-screen">
   <!-- <Header /> -->
 
-  <main class="">
+  <main class="overflow-hidden">
     <slot />
   </main>
 

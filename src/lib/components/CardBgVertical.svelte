@@ -1,7 +1,9 @@
 <script lang="ts">
   // Handwritten because why not
 
-  export let h = 620, w = 320, img = "";
+  export let h = 620, w = 320, img = "", log = false;
+
+  $: if (log) console.log(w, h);
 
   let color = "green";
   let theta = 45 * (Math.PI/180);
@@ -16,7 +18,6 @@
   let sh = (h - c*4 - p*2) / 3; // segment height
   let g = hc; // gap for side panels
   let g2 = g / cosT;
-  let g3 = g * sinT;
 
   let imgH = 200;
 </script>

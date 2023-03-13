@@ -99,17 +99,22 @@
 
 <Matrix class="absolute -z-10 h-screen w-full" />
 
-<section class="flex flex-col content-around justify-center min-h-screen">
+<section class="flex flex-col content-around justify-center min-h-screen relative">
   <div
-    class="text-shadow-green text-left text-white backdrop-blur shadow-[0_0_12px_4px_hsl(110,_6%,_6%)] px-48 py-12 flex flex-col gap-4"
+    class="text-shadow-green text-left text-white backdrop-blur shadow-[0_0_12px_4px_hsl(110,_6%,_6%)] px-4 min-[372px]:px-8 sm:px-16 lg:px-48 py-8 md:py-12 my-64"
   >
     <noscript>
-      <h1 class="text-2xl h-8">Tomasz Nocoń</h1>
-      <h2 class="text-7xl h-[4.5rem]">software_engineer;</h2>
+      <h1 class="text-2xl h-[1em]">Tomasz Nocoń</h1>
+      <h2 class="text-7xl h-[1em] mt-4">Software engineer;</h2>
     </noscript>
     {#if show}
-      <h1 in:typewriter class="text-2xl h-[2ch]">Tomasz Nocoń</h1>
-      <h2 in:typewriter={{ delay: 1200 }} class="text-7xl h-[2ch]">software_engineer;</h2>
+      <h1 in:typewriter class="text-xl md:text-2xl h-[1em]">Tomasz Nocoń</h1>
+      <h2
+        in:typewriter={{ delay: 1200 }}
+        class="text-5xl xs:text-6xl md:text-7xl h-[2em] lg:h-[1em] mt-4"
+      >
+        Software engineer;
+      </h2>
     {:else}
       <div class="text-2xl h-8" />
       <div class="text-7xl h-[4.5rem]" />
@@ -147,14 +152,14 @@
 <!-- </Canvas> -->
 
 <section
-  class="home-section py-24 text-center h-[72rem] md:h-[60rem]"
+  class="home-section py-24 text-center h-[88rem] md:h-[60rem]"
   bind:this={secondSection}
   on:mousemove={mouseMoved}
 >
   <HexGrid bind:mouseMoved />
 
   <div class="z-10 relative gap-8 grid md:grid-cols-2 max-w-6xl mx-auto px-8">
-    <h2 class="text-7xl w-full col-start-1 md:col-end-3 mb-16">Skillset</h2>
+    <h2 class="home-section-title w-full col-start-1 md:col-end-3">Skillset</h2>
 
     <!-- <noscript> -->
     <div class="">
@@ -162,7 +167,7 @@
       <p class="text-sm pt-4">Used extensively in recent years</p>
     </div>
 
-    <div class="row-start-3 min-h-[15rem]">
+    <div class="row-start-3 min-h-[18rem]">
       <noscript>
         <ul>
           {#each skillsGood as skill}
@@ -172,7 +177,7 @@
       </noscript>
     </div>
 
-    <div class="md:translate-y-28">
+    <div class="md:translate-y-[5.5rem]">
       <h3 class="flex-1 font-bold text-3xl ">Competence</h3>
       <p class="text-sm pt-4">
         Used in recent years, but not to the point of achieving expertise, or used extensively in
@@ -180,7 +185,7 @@
       </p>
     </div>
 
-    <div class="md:translate-y-28">
+    <div class="md:translate-y-[5.5rem]">
       <noscript>
         <ul>
           {#each skillsMid as skill}
@@ -201,7 +206,7 @@
 <section class="home-section bg-[url('bg4.svg')] bg-no-repeat bg-cover">
   <div class="inset-0 absolute bg-[#0009] my-blur" />
   <div class="z-10 relative">
-    <h2 class="text-7xl pb-16 text-center">About me</h2>
+    <h2 class="home-section-title">About me</h2>
 
     <div class="w-[40rem] mx-auto leading-7 flex flex-col gap-6">
       <p>
@@ -214,7 +219,7 @@
         and can play
         <!-- svelte-ignore security-anchor-rel-noreferrer -->
         <a href="https://www.youtube.com/watch?v=p2ct4xXak24" class="external" target="_blank">
-          The Phantom of the Opera
+          Phantom of the Opera
         </a> at the original speed (even the Iron Maiden usually play it slower live!)
       </p>
       <p>Currently I'm looking for a passionate team of developers to write great software with.</p>

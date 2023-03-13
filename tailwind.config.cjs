@@ -40,6 +40,9 @@ module.exports = {
       backgroundImage: {
         gradient1: "linear-gradient(to top, #30cfd0 0%, #330867 100%)",
       },
+      screens: {
+        xs: "360px",
+      },
     },
   },
   plugins: [],
