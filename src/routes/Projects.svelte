@@ -12,7 +12,7 @@
     <Project
       name="Star Wars Media Timeline"
       featured
-      stack={["React", "Sass", "Node.js", "MongoDB", "AWS EC2", "AWS S3"]}
+      stack={["React", "Sass", "Node.js", "MongoDB", "Express.js", "AWS EC2", "AWS S3"]}
       gh="https://github.com/tomasz13nocon/swtimeline"
       website="https://starwarstl.com"
       img="/screenshots/starwarstl.png"
@@ -28,15 +28,12 @@
           class="external">complex Node.js script</a
         >.
       </p>
-      <p>
-        Currently working on even more filtering options and adding authentication for users to
-        track media they watch and read, as well as converting the SPA to NextJS.
-      </p>
+      <p>Currently working on adding authentication and converting the SPA to NextJS.</p>
     </Project>
 
     <Project
       name="Karolina's portfolio"
-      stack={["Astro", "Vanilla JS", "NetlifyCMS"]}
+      stack={["Astro", "Vanilla JS", "Tailwind", "NetlifyCMS"]}
       gh="https://github.com/tomasz13nocon/karolina"
       website="https://beta--cute-pixie-d384de.netlify.app/"
       img="/screenshots/karolina.png"

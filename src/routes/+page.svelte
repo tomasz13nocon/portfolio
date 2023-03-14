@@ -213,7 +213,7 @@
         class="px-6 w-auto text-center sm:text-left sm:w-[40rem] mx-auto leading-7 flex flex-col gap-6"
       >
         <p>
-          I've been writing code for about 10 years now with some breaks here and there. I was first
+          I started writing code about 10 years ago, having some breaks in between. I was first
           introduced to C++ in a high school programming class, and instantly fell in love with the
           process of programming.
         </p>

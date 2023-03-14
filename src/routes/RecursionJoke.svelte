@@ -1,5 +1,5 @@
 <script lang="ts">
-  const max = 12;
+  const max = 10;
   let n = 0,
     intervalId: number;
 
@@ -25,6 +25,8 @@
   {/each}
   <span class="link">Live website</span>
   {#if n > max}
-    <span class="text-red-600">Error: infinite recursion!</span>
+    <span class="text-red-600 absolute whitespace-nowrap left-0 bottom-full"
+      >Error: infinite recursion!</span
+    >
   {/if}
 </div>

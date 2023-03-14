@@ -4,6 +4,7 @@
   import CardBgVertical from "$lib/components/CardBgVertical.svelte";
   import RecursionJoke from "./RecursionJoke.svelte";
   import { onMount } from "svelte";
+  import { skills } from "$lib/data";
 
   export let name: string,
     featured = false,
@@ -92,21 +93,35 @@
           <div class="px-4 py-1">Featured</div>
         </div>
       {/if}
-      <p class="{vertical ? '' : 'cardbp:w-[63%]'} mt-8">
+      <p class="{vertical ? '' : 'cardbp:w-[67%]'} mt-8">
         <slot />
       </p>
       {#if more}
         <a href="/{more}" class="w-fit block mt-4">READ MORE</a>
       {/if}
     </div>
+
+    <!-- <div class="my-16 cardbp:my-8 flex flex-wrap items-center gap-6"> -->
     <div class="my-16 cardbp:my-8">
-      <div class="inline-block text-sm">TECH STACK:</div>
-      <ul class="inline-flex gap-4">
+      <!-- <div class="inline-block">Tech stack:</div> -->
+      <ul class="inline-grid gap-2 grid-flow-col auto-cols-[minmax(4rem,_1fr)] justify-center">
         {#each stack as tech}
-          <li class="">{tech}</li>
+          <li class="text-xs flex-1 basis-0 text-center flex flex-col">
+            <img
+              src={skills[tech].src}
+              alt="{tech} logo"
+              width="40"
+              height="40"
+              class="mx-auto {skills[tech].bg ? 'p-1' : ''}
+                  mb-2 max-w-[2.5rem] max-h-10 flex-1 rounded"
+              style:background-color={skills[tech].bg}
+            />
+            {tech}
+          </li>
         {/each}
       </ul>
     </div>
+
     <div>
       <div class="">
         <a href={gh} target="_blank" class="external mr-4">Source code</a>
