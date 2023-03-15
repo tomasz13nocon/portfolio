@@ -104,9 +104,12 @@
     <!-- <div class="my-16 cardbp:my-8 flex flex-wrap items-center gap-6"> -->
     <div class="my-16 cardbp:my-8">
       <!-- <div class="inline-block">Tech stack:</div> -->
-      <ul class="inline-grid gap-2 grid-flow-col auto-cols-[minmax(4rem,_1fr)] justify-center">
+      <!-- <ul -->
+      <!--   class="flex flex-wrap gap-4 whitespace-nowrap cardbp:inline-grid cardbp:gap-2 cardbp:grid-flow-col cardbp:auto-cols-[minmax(4rem,_1fr)] cardbp:justify-center" -->
+      <!-- > -->
+      <ul class="tech-stack-list flex flex-wrap gap-2">
         {#each stack as tech}
-          <li class="text-xs flex-1 basis-0 text-center flex flex-col">
+          <li class="text-xs text-center flex flex-col min-w-[4rem]">
             <img
               src={skills[tech].src}
               alt="{tech} logo"
@@ -123,7 +126,7 @@
     </div>
 
     <div>
-      <div class="">
+      <div class="flex flex-wrap">
         <a href={gh} target="_blank" class="external mr-4">Source code</a>
         {#if website}
           <a href={website} target="_blank" class="external">Live website</a>
@@ -134,3 +137,18 @@
     </div>
   </div>
 </div>
+
+<style>
+  .tech-stack-list {
+    /* grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); */
+    /* display: grid; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    grid-auto-flow: row;
+  }
+</style>

@@ -3,16 +3,14 @@
   import "./styles.sass";
 </script>
 
-<div class="flex flex-col min-h-screen">
-  <!-- <Header /> -->
+<!-- <div class="flex flex-col min-h-screen"> -->
+<!-- <Header /> -->
 
-  <main class="overflow-hidden">
-    <slot />
-  </main>
+<main class="overflow-hidden">
+  <slot />
+</main>
 
-  <footer />
-</div>
-
+<!-- </div> -->
 <style>
   /* main { */
   /*   flex: 1; */
