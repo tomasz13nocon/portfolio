@@ -13,25 +13,10 @@
     chars: string[];
   }
 
-  const theColors = [
-    "#D3FBE7ff",
-    "#81ec72ff",
-    "#5cd646ff",
-    "#54d13cee",
-    "#4ccc32ba",
-    "#4ccc329a",
-    "#43c72878",
-    "#43c72858",
-    "#43c72838",
-  ];
+  const theColors = ["#D3FBE7ff", "#81ec72ff", "#5cd646ff", "#54d13cee", "#4ccc32ba", "#4ccc329a", "#43c72878", "#43c72858", "#43c72838"];
   const shadowColor = "#94f475";
 
-  let canvas: HTMLCanvasElement,
-    context: CanvasRenderingContext2D,
-    lastT: number,
-    stripCount: number,
-    strips: Strip[],
-    rafId: number;
+  let canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, lastT: number, stripCount: number, strips: Strip[], rafId: number;
 
   function randomizeChar() {
     return matrixChars[Math.floor(Math.random() * matrixChars.length)];
@@ -46,7 +31,7 @@
     return {
       posX: Math.floor(Math.random() * canvas.width),
       posY: -100 - Math.random() * 1200,
-      speed: Math.floor(Math.random() * 6) + 4,
+      speed: Math.floor(Math.random() * 6) + 6,
       fontSize: Math.floor(Math.random() * 16) + 14,
       height,
       chars,

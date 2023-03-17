@@ -6,6 +6,9 @@ module.exports = {
       animation: {
         "spin-slow": "spin 13s linear infinite",
       },
+      filter: {
+        "distort-text": "url(#distort-text)",
+      },
       colors: {
         pri: {
           0: "#ABCC2C",
@@ -24,6 +27,7 @@ module.exports = {
           // 2: "#74662C",
           3: "#A26C21",
           4: "#865622",
+          5: "#56330D",
         },
         ter: {
           0: "#FF5000",

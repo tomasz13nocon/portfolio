@@ -45,10 +45,6 @@
   $: if (contentDiv && verticalOrSmallScreen) {
     innerWidth;
     verticalCardHeight = verticalCardWidth * (contentDiv.offsetHeight / contentDiv.offsetWidth);
-    if (name === "Star Wars Media Timeline") {
-      console.log(contentDiv.offsetWidth, contentDiv.offsetHeight);
-      console.log(contentDiv.offsetHeight / contentDiv.offsetWidth);
-    }
     // verticalCardHeight = contentDiv.offsetHeight;
   }
 </script>
@@ -69,7 +65,6 @@
       w={verticalCardWidth}
       h={verticalCardHeight}
       {img}
-      log={name === "Star Wars Media Timeline"}
     />
   {/key}
   {#if !vertical}

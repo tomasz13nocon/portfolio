@@ -1,9 +1,7 @@
 <script lang="ts">
   // Handwritten because why not
 
-  export let h = 620, w = 320, img = "", log = false;
-
-  $: if (log) console.log(w, h);
+  export let h = 620, w = 320, img = "";
 
   let color = "green";
   let theta = 45 * (Math.PI/180);
