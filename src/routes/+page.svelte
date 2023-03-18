@@ -1,29 +1,13 @@
 <script lang="ts">
-  import welcome from "$lib/images/svelte-welcome.webp";
-  import welcome_fallback from "$lib/images/svelte-welcome.png";
   import { skillsMid, skillsGood } from "$lib/data";
   import { onMount } from "svelte";
   import { matrixChars } from "$lib/util";
   import { interpolateLab } from "d3-interpolate";
-  import { Canvas, InteractiveObject, OrbitControls, T, useFrame } from "@threlte/core";
   import { spring, tweened } from "svelte/motion";
-  import { degToRad } from "three/src/math/MathUtils";
-  import Scene from "./Scene.svelte";
   import Matrix from "./Matrix.svelte";
-  import fragmentShader from "$lib/shaders/main.frag";
-  import testVert from "$lib/shaders/test.vert";
-  import testFrag from "$lib/shaders/test.frag";
-  import ThreeScene from "./ThreeScene.svelte";
-  import ClockScene from "./ClockScene.svelte";
-  import { Float } from "@threlte/extras";
-  import RedPill from "./RedPill.svelte";
   import { cubicOut } from "svelte/easing";
   import HexGrid from "./HexGrid.svelte";
-  import CardBg from "$lib/components/CardBg.svelte";
   import Projects from "./Projects.svelte";
-  import { svg_element } from "svelte/internal";
-
-  const scale = spring(1);
 
   let show = false;
   onMount(() => (show = true));
@@ -70,6 +54,14 @@
   let secondSection: HTMLElement;
   $: if (!pillTaken && secondSection?.offsetTop < scrollY + 350) takePill();
 
+  let lightPos = { x: 10, y: 25 };
+  function mouseMovedWindow(e: MouseEvent) {
+    lightPos.x = (e.clientX / innerWidth) * 60 - 10;
+    lightPos.y = e.clientY / (pillContainer.getBoundingClientRect().top + 50);
+    // 0 - top of screen, 1 - middle of the pill, 1+ - below the pill
+    lightPos.y = Math.min(lightPos.y * 50, 100);
+  }
+
   let mouseMoved: (e: MouseEvent) => void;
 </script>
 
@@ -81,7 +73,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet" />
 </svelte:head>
 
-<svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
+<svelte:window bind:scrollY bind:innerWidth bind:innerHeight on:mousemove={mouseMovedWindow} />
 <!-- <svelte:body class="overflow-hidden relative" /> -->
 
 <noscript>
@@ -148,7 +140,7 @@
 
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div
-    class="mx-auto absolute left-1/3 -translate-x-1/2 bottom-16 cursor-pointer"
+    class="absolute left-1/2 -translate-x-1/2 pill-bob bottom-16 cursor-pointer"
     on:pointerenter={() => pillTaken || ($pillColor = "#E31F1F")}
     on:pointerleave={() => pillTaken || ($pillColor = "#1E40DA")}
     on:click={() => {
@@ -156,7 +148,7 @@
       window.scrollTo({ top: secondSection.offsetTop, behavior: "smooth" });
     }}
     bind:this={pillContainer}
-    style:backdrop-filter="blur(6px)"
+    style:backdrop-filter="blur(3px)"
     style:clip-path="inset(0 0 0 0 round 36%"
   >
     <svg width="40" height="100" viewBox="0 0 40 100">
@@ -164,7 +156,7 @@
         <filter id="lighting">
           <!-- <feGaussianBlur in="SourceAlpha" stdDeviation="10" /> -->
           <feSpecularLighting specularExponent="60" specularConstant="2" surfaceScale="0" lighting-color="#ccc">
-            <fePointLight x="10" y="25" z="60" />
+            <fePointLight {...lightPos} z="60" />
           </feSpecularLighting>
           <!-- <feComposite in="SourceGraphic" operator="arithmetic" k1="10" k2="0.5" k3="0.2" k4="0" /> -->
           <feComposite in="SourceGraphic" operator="arithmetic" k1="6.0" k2="0.7" k3="0.3" k4="0.00" result="qwe" />
@@ -172,24 +164,20 @@
           <!-- <feBlend in="qwe" in2="SourceGraphic" mode="hard-light" /> -->
         </filter>
       </defs>
-      <rect id="pill-rect" x="0" y="0" width="40" height="100" ry="30" rx="50" fill={$pillColor} filter="url(#lighting)" style:opacity="0.8" />
+      <rect id="pill-rect" x="0" y="0" width="40" height="100" ry="30" rx="50" fill={$pillColor} filter="url(#lighting)" style:opacity="0.86" />
     </svg>
   </div>
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div
-    class="w-24 h-40 mx-auto absolute left-1/2 -translate-x-1/2 bottom-8 cursor-pointer"
-    on:pointerenter={() => pillTaken || ($pillColor = "#E31F1F")}
-    on:pointerleave={() => pillTaken || ($pillColor = "#1E40DA")}
-    on:click={() => {
-      takePill();
-      window.scrollTo({ top: secondSection.offsetTop, behavior: "smooth" });
-    }}
-    bind:this={pillContainer}
-  >
-    <Canvas>
-      <RedPill color={$pillColor} container={pillContainer} />
-    </Canvas>
-  </div>
+  <!-- <div -->
+  <!--   class="w-24 h-40 mx-auto absolute left-1/2 -translate-x-1/2 bottom-8 cursor-pointer" -->
+  <!--   on:pointerenter={() => pillTaken || ($pillColor = "#E31F1F")} -->
+  <!--   on:pointerleave={() => pillTaken || ($pillColor = "#1E40DA")} -->
+  <!--   on:click={() => { -->
+  <!--     takePill(); -->
+  <!--     window.scrollTo({ top: secondSection.offsetTop, behavior: "smooth" }); -->
+  <!--   }} -->
+  <!--   bind:this={pillContainer} -->
+  <!-- > -->
 </section>
 
 <!-- <Canvas> -->
@@ -281,10 +269,18 @@
 </section>
 
 <style>
-  .my-blur {
-    /* backdrop-filter: blur(4px); */
-  }
   .text-shadow-green {
     text-shadow: 0 0 10px #94f475;
+  }
+  .pill-bob {
+    animation: bob 1.2s infinite alternate ease-in-out;
+  }
+  @keyframes bob {
+    0% {
+      transform: translate(-50%, -17%);
+    }
+    100% {
+      transform: translate(-50%, 17%);
+    }
   }
 </style>
