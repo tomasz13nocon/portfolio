@@ -16,8 +16,8 @@
       gh="https://github.com/tomasz13nocon/swtimeline"
       website="https://starwarstl.com"
       img="/screenshots/starwarstl.png"
-      more="starwarstl"
     >
+      <!-- more="starwarstl" -->
       <p>Virtualized timeline with lots of filters and search capabilities.</p>
       <p>
         The contents are automatically fetched, parsed and transformed from the Star Wars wiki daily via a

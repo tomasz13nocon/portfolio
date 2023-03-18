@@ -238,7 +238,7 @@
 
 <Projects />
 
-<section class="home-section bg-[url('bg4.svg')] bg-no-repeat bg-cover flex flex-col">
+<section class="home-section bg-[url($lib/images/bg4.svg)] bg-no-repeat bg-cover flex flex-col">
   <div class="inset-0 absolute bg-[#0009] my-blur" />
   <div class="z-10 relative flex flex-col justify-between flex-1">
     <div>
@@ -262,6 +262,7 @@
     <footer class="mx-auto flex flex-col md:flex-row text-center gap-y-4 gap-x-12 justify-center mt-24">
       <a href="https://github.com/tomasz13nocon" target="_blank" class="external">GitHub</a>
       <a href="https://stackoverflow.com/users/5459498/tomasz-noco%c5%84" target="_blank" class="external"> Stack Overflow </a>
+      <a href="https://codepen.io/tomasz13nocon/pens/public" target="_blank" class="external">Codepen</a>
       <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">My dotfiles</a>
       <a href="resume.pdf" target="_blank">My resume</a>
     </footer>
