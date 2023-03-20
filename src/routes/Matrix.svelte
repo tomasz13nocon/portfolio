@@ -113,7 +113,6 @@
 
   onMount(() => {
     context = canvas.getContext("2d") as CanvasRenderingContext2D;
-    // context.globalCompositeOperation = "lighter";
     resizeCanvas();
     lastT = 0;
     stripCount = Math.floor(canvas.width / 26);
@@ -130,4 +129,3 @@
 
 <svelte:window on:resize={resizeCanvas} />
 <canvas bind:this={canvas} class={$$props.class} />
-<!-- style:transform="translateY({offset}px)" -->

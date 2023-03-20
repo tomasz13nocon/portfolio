@@ -6,7 +6,6 @@
   export function mouseMoved(e: MouseEvent) {
     mx = e.clientX;
     my = e.clientY - canvas.getBoundingClientRect().top;
-    // console.log(mx, my);
   }
 
   interface Skill {
@@ -59,8 +58,6 @@
     hexes = [];
     let skillsGoodAssigned = 0;
     let skillsMidAssigned = 0;
-    let leftQuestionAssigned = false;
-    let rightQuestionAssigned = false;
     let imgsLoaded = 0;
     let initDone = false;
     const vertical = innerWidth < 768;
@@ -80,16 +77,6 @@
       // We need i to do `i % 2` below, because `y / hexDY % 2` would not work due to floating point arithmetic inaccuracies
       for (let x = i % 2 ? hexDX * 0.5 : 0; x < width + hexSize; x += hexDX) {
         let skill;
-
-        // if (y > 232 && x > leftCenter + hexSize && !leftQuestionAssigned) {
-        //   skill = questionMark;
-        //   skill.name = "Used extensively in recent years";
-        //   leftQuestionAssigned = true;
-        // } else if (y > 232 && x > rightCenter + hexSize && !rightQuestionAssigned) {
-        //   skill = questionMark;
-        //   skill.name = "Used sparingly in recent years or extensively in the past";
-        //   rightQuestionAssigned = true;
-        // }
 
         if (
           y > iconsStartY &&

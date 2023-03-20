@@ -3,7 +3,7 @@
   import { onMount } from "svelte";
   import { matrixChars } from "$lib/util";
   import { interpolateLab } from "d3-interpolate";
-  import { spring, tweened } from "svelte/motion";
+  import { tweened } from "svelte/motion";
   import Matrix from "./Matrix.svelte";
   import { cubicOut } from "svelte/easing";
   import HexGrid from "./HexGrid.svelte";
@@ -74,7 +74,6 @@
 </svelte:head>
 
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight on:mousemove={mouseMovedWindow} />
-<!-- <svelte:body class="overflow-hidden relative" /> -->
 
 <noscript>
   <div class="fixed z-50 p-2 left-1/2 -translate-x-1/2 w-80 sm:w-[36rem] text-sm text-center bg-sec-5">
@@ -167,31 +166,7 @@
       <rect id="pill-rect" x="0" y="0" width="40" height="100" ry="30" rx="50" fill={$pillColor} filter="url(#lighting)" style:opacity="0.86" />
     </svg>
   </div>
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <!-- <div -->
-  <!--   class="w-24 h-40 mx-auto absolute left-1/2 -translate-x-1/2 bottom-8 cursor-pointer" -->
-  <!--   on:pointerenter={() => pillTaken || ($pillColor = "#E31F1F")} -->
-  <!--   on:pointerleave={() => pillTaken || ($pillColor = "#1E40DA")} -->
-  <!--   on:click={() => { -->
-  <!--     takePill(); -->
-  <!--     window.scrollTo({ top: secondSection.offsetTop, behavior: "smooth" }); -->
-  <!--   }} -->
-  <!--   bind:this={pillContainer} -->
-  <!-- > -->
 </section>
-
-<!-- <Canvas> -->
-<!--   <ClockScene /> -->
-<!-- </Canvas> -->
-
-<!-- <Canvas> -->
-<!--   <T.PerspectiveCamera makeDefault position={[10, 10, 10]} fov={24}> -->
-<!--     <OrbitControls enableZoom={false} /> -->
-<!--   </T.PerspectiveCamera> -->
-<!--   <T.DirectionalLight /> -->
-<!--   <T.AmbientLight intensity={0.3} /> -->
-<!--   <ClockScene /> -->
-<!-- </Canvas> -->
 
 <section class="home-section py-24 text-center h-[88rem] md:h-[64rem]" bind:this={secondSection} on:mousemove={mouseMoved}>
   <HexGrid bind:mouseMoved />
@@ -229,7 +204,6 @@
         </ul>
       </noscript>
     </div>
-    <!-- </noscript> -->
   </div>
   <div class="md:col-start-1 md:col-end-3 absolute bottom-24 w-full px-4 text-xl">
     ... and whatever else <em>You</em> need.<br />I learn <strong class="text-pri-2">fast</strong>.

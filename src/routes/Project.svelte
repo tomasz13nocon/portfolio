@@ -1,9 +1,7 @@
 <script lang="ts">
   import CardBg from "$lib/components/CardBg.svelte";
-  import { circIn } from "svelte/easing";
   import CardBgVertical from "$lib/components/CardBgVertical.svelte";
   import RecursionJoke from "./RecursionJoke.svelte";
-  import { onMount } from "svelte";
   import { skills } from "$lib/data";
 
   export let name: string,
@@ -16,24 +14,11 @@
     more = "",
     vertical = false;
 
-  let mx = 0,
-    my = 0,
-    section: HTMLElement,
-    rotateX = 0,
+  let rotateX = 0,
     rotateY = 0,
     deg = 0,
     innerWidth: number,
     innerHeight: number;
-
-  let mouseMovedProjects = (e: MouseEvent) => {
-    mx = e.clientX;
-    my = e.clientY - section.getBoundingClientRect().top;
-    let yRel = (2 * my) / innerHeight - 1;
-    let xRel = (2 * mx) / innerWidth - 1;
-    rotateX = Math.sign(yRel) * circIn(yRel);
-    rotateY = -Math.sign(xRel) * circIn(xRel);
-    deg = Math.max(Math.abs(xRel), Math.abs(yRel)) * 4;
-  };
 
   let animate = true;
 
@@ -52,27 +37,15 @@
 <svelte:window bind:innerWidth bind:innerHeight />
 
 <div
-  class="{vertical
-    ? 'cardbp:w-1/2 inline-block cardbp:min-h-[36rem] cardbp:-mt-[3.5rem]'
-    : 'cardbp:h-[calc(0.48046875_*_76rem)]'}
+  class="{vertical ? 'cardbp:w-1/2 inline-block cardbp:min-h-[36rem] cardbp:-mt-[3.5rem]' : 'cardbp:h-[calc(0.48046875_*_76rem)]'}
     w-full text-pri-1 relative card"
   style:transform="rotate3d({rotateX}, {rotateY}, 0, {deg}deg)"
 >
   {#key verticalCardHeight}
-    <CardBgVertical
-      {animate}
-      class="absolute {vertical ? '' : 'cardbp:hidden'}"
-      w={verticalCardWidth}
-      h={verticalCardHeight}
-      {img}
-    />
+    <CardBgVertical {animate} class="absolute {vertical ? '' : 'cardbp:hidden'}" w={verticalCardWidth} h={verticalCardHeight} {img} />
   {/key}
   {#if !vertical}
-    <CardBg
-      {animate}
-      class="absolute w-[76rem] h-[calc(0.48046875_*_76rem)] hidden cardbp:block"
-      {img}
-    />
+    <CardBg {animate} class="absolute w-[76rem] h-[calc(0.48046875_*_76rem)] hidden cardbp:block" {img} />
   {/if}
   <div
     bind:this={contentDiv}
@@ -96,12 +69,7 @@
       {/if}
     </div>
 
-    <!-- <div class="my-16 cardbp:my-8 flex flex-wrap items-center gap-6"> -->
     <div class="my-16 cardbp:my-8">
-      <!-- <div class="inline-block">Tech stack:</div> -->
-      <!-- <ul -->
-      <!--   class="flex flex-wrap gap-4 whitespace-nowrap cardbp:inline-grid cardbp:gap-2 cardbp:grid-flow-col cardbp:auto-cols-[minmax(4rem,_1fr)] cardbp:justify-center" -->
-      <!-- > -->
       <ul class="tech-stack-list flex flex-wrap gap-2">
         {#each stack as tech}
           <li class="text-xs text-center flex flex-col min-w-[4rem]">
@@ -135,12 +103,9 @@
 
 <style>
   .tech-stack-list {
-    /* grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); */
-    /* display: grid; */
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    /* grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); */
     grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     grid-auto-columns: 1fr;
     grid-auto-rows: 1fr;

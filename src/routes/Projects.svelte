@@ -2,10 +2,7 @@
   import Project from "./Project.svelte";
 </script>
 
-<!-- TODO: changed perspective to custom TW, confirm this works -->
-<section class="home-section [perspective:1000px]">
-  <!-- on:mousemove={mouseMovedProjects} -->
-  <!-- bind:this={section} -->
+<section class="home-section">
   <div class="w-full xl:w-[76rem] mx-auto flex flex-wrap gap-y-16">
     <h2 class="home-section-title mb-0 mx-auto">Projects</h2>
 
