@@ -48,7 +48,7 @@
         switch (j) {
           case 0:
             context.fillStyle = theColors[0];
-            context.shadowBlur = 8;
+            // context.shadowBlur = 8;
             break;
           case 1:
             context.fillStyle = theColors[1];
@@ -58,7 +58,7 @@
             break;
           case 11:
             context.fillStyle = theColors[3];
-            context.shadowBlur = 0;
+            // context.shadowBlur = 0;
             break;
           case 17:
             context.fillStyle = theColors[4];
@@ -86,7 +86,7 @@
     let dt = t - lastT;
     // clear the canvas and set the properties
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.shadowBlur = 8;
+    context.shadowBlur = 0;
     context.shadowColor = shadowColor;
 
     for (let i = 0; i < stripCount; i++) {

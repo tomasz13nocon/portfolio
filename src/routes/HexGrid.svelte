@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { cubicOut, quadIn, quadOut, quintIn, quintOut } from "svelte/easing";
-  import { questionMark, skillsGood, skillsMid } from "$lib/data";
+  import { quadIn } from "svelte/easing";
+  import { skillsGood, skillsMid } from "$lib/data";
 
   export function mouseMoved(e: MouseEvent) {
     mx = e.clientX;
@@ -66,10 +66,8 @@
     const vertical = innerWidth < 768;
     const halfSkillsWidth = hexSize * 3;
     const sectionWidth = Math.min(1080, innerWidth);
-    const leftCenter =
-      sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5);
-    const rightCenter =
-      sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5);
+    const leftCenter = sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5);
+    const rightCenter = sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5);
     const iconsStartY = 440;
 
     function drawIfReady() {
@@ -143,26 +141,24 @@
     ctx.fillStyle = "";
   }
 
-  function drawTooltip(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    text: string,
-    bg: string,
-    color: string
-  ) {
-    const padding = 10,
-      fontSize = 16,
+  function drawTooltip(ctx: CanvasRenderingContext2D, x: number, y: number, text: string, bg: string, color: string) {
+    const padding = 8,
+      fontSize = 14,
       { width: textWidth } = ctx.measureText(text),
       rectHeight = fontSize + padding * 2;
+
+    // draw to the left if overflows
+    if (x + textWidth > innerWidth) {
+      x = x - textWidth - hexSize * 3.5;
+    }
 
     ctx.fillStyle = bg;
     ctx.fillRect(x, y - rectHeight * 0.5, textWidth + padding * 2, rectHeight);
 
-    ctx.font = fontSize + "px monospace";
+    ctx.font = `bold ${fontSize}px monospace`;
     ctx.textBaseline = "top";
     ctx.fillStyle = color;
-    ctx.fillText(text, x + padding, y + padding - rectHeight * 0.5);
+    ctx.fillText(text, x + padding, y + padding - rectHeight * 0.5 + 1);
   }
 
   function drawStaticHexes(ctx: CanvasRenderingContext2D) {
@@ -180,12 +176,7 @@
     }
   }
 
-  function drawHexagon(
-    ctx: CanvasRenderingContext2D,
-    hex: { x: number; y: number },
-    r: number,
-    color: string
-  ) {
+  function drawHexagon(ctx: CanvasRenderingContext2D, hex: { x: number; y: number }, r: number, color: string) {
     ctx.strokeStyle = color;
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
@@ -215,6 +206,8 @@
     // ctx.fillStyle = "white";
     // ctx.fillText("Expertise", 100, 232);
 
+    // allow only one hex to be hovered. Easier than figuring out intersection with hexes, and good enough
+    let hovered = false;
     // Draw hover hexes
     for (let hex of hexes) {
       let opacityHexa = Math.floor(hex.opacity * 255)
@@ -222,7 +215,8 @@
         .padStart(2, "0");
 
       let mouseIn = Math.abs(hex.x - mx) < hexDY && Math.abs(hex.y - my) < hexDY;
-      if (mouseIn) {
+      if (mouseIn && !hovered) {
+        hovered = true;
         hex.opacity = 1;
         hex.opacityT = 0;
         if (hex.skill) {
@@ -263,14 +257,7 @@
     // Draw tooltip
     for (let hex of drawTooltipSchedule) {
       if (hex.skill) {
-        drawTooltip(
-          ctx,
-          hex.x + hexSize * 1.5,
-          hex.y,
-          hex.skill.name.toUpperCase(),
-          hex.skill.color,
-          hex.skill.dark ? "white" : "black"
-        );
+        drawTooltip(ctx, hex.x + hexSize * 1.5, hex.y, hex.skill.name.toUpperCase(), hex.skill.color, hex.skill.dark ? "white" : "black");
       }
     }
 
