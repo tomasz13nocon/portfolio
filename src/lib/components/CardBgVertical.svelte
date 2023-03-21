@@ -1,7 +1,9 @@
 <script lang="ts">
   // Handwritten because why not
 
-  export let h = 620, w = 320, img = "";
+    import { onMount } from "svelte";
+
+  export let h = 620, w = 320, img = "", animate = false;
 
   let color = "green";
   let theta = 45 * (Math.PI/180);
@@ -18,6 +20,15 @@
   let g2 = g / cosT;
 
   let imgH = 200;
+
+  let mainPath: SVGPathElement;
+  $: pathLength = mainPath?.getTotalLength();
+
+  let animateTag: SVGAnimationElement;
+  $: if (animate && animateTag) {
+    animateTag.beginElement();
+  }
+
   const uid = Math.random(); // For 1 in every 18 quintillion users this UI will break.
 </script>
 
@@ -72,7 +83,25 @@
       l {-c} {c} h {-sw} l {-c} {-c}
       v {-sh} l {c} {-c} v {-sh} l {-c} {-c} v {-sh} Z
       "
-    />
+      bind:this={mainPath}
+      stroke-dasharray="0,0,0,{pathLength ?? 9999}"
+    >
+      {#if pathLength}
+        <animate
+          bind:this={animateTag}
+          attributeType="XML"
+          attributeName="stroke-dasharray"
+          begin="indefinite"
+          repeatCount="1"
+          dur="2000ms"
+          values="0,0,0,{pathLength}; 
+          0,{pathLength * 0.5},{pathLength * 0.5},0; 
+          {pathLength},0,0,0"
+          keyTimes="0; 0.5; 1"
+          fill="freeze"
+        />
+      {/if}
+    </path>
     <path
       d="M{p+hc} {p+hc} l {hc} {hc} l {x} {-x} h {hc}
       m{-hc-x} {x} l {-x} {x} v{hc}"
