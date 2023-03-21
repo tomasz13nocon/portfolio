@@ -238,7 +238,7 @@
       <a href="https://stackoverflow.com/users/5459498/tomasz-noco%c5%84" target="_blank" class="external"> Stack Overflow </a>
       <a href="https://codepen.io/tomasz13nocon/pens/public" target="_blank" class="external">Codepen</a>
       <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">My dotfiles</a>
-      <a href="resume.pdf" target="_blank">My resume</a>
+      <!-- <a href="resume.pdf" target="_blank">My resume</a> -->
     </footer>
   </div>
 </section>
