@@ -18,7 +18,11 @@
       <p>Virtualized timeline with lots of filters and search capabilities.</p>
       <p>
         The contents are automatically fetched, parsed and transformed from the Star Wars wiki daily via a
-        <a href="https://github.com/tomasz13nocon/swtimeline-server/blob/master/fetch_timeline.js" target="_blank" class="external">complex Node.js script</a>.
+        <a
+          href="https://github.com/tomasz13nocon/swtimeline-server/blob/master/fetch_timeline.js"
+          target="_blank"
+          class="external">complex Node.js script</a
+        >.
       </p>
       <p>Currently working on adding authentication and converting the SPA to NextJS.</p>
     </Project>
@@ -33,8 +37,8 @@
       vertical
     >
       <p>
-        Simple portfolio website for a photographer. Statically generated with blogging capabilities and a basic CMS setup. Fullscreen image viewer written from
-        scratch in vanilla JS.
+        Simple portfolio website for a photographer. Statically generated with blogging capabilities and a basic CMS setup.
+        Fullscreen image viewer written from scratch in vanilla JS.
       </p>
     </Project>
 
@@ -50,22 +54,36 @@
       <p>I had some fun with canvas and SVGs.</p>
       <p>
         And I even
-        <a href="https://www.figma.com/file/882otEPHJxgiwsfCuA5Jyf/CyberCard?t=I3GNoCON63CiiW5T-6" class="external" target="_blank"> designed </a> these cards.
+        <a
+          href="https://www.figma.com/file/882otEPHJxgiwsfCuA5Jyf/CyberCard?t=I3GNoCON63CiiW5T-6"
+          class="external"
+          target="_blank"
+        >
+          designed
+        </a> these cards.
       </p>
     </Project>
 
-    <div class="flex gap-16 md:gap-24 lg:gap-32 flex-col sm:flex-row mb-16 px-8 mx-auto text-center sm:text-left">
+    <div
+      class="flex gap-16 md:gap-24 lg:gap-32 flex-col sm:flex-row mb-8 py-12 px-8 mx-auto text-center sm:text-left border-t-2 border-b-2 w-full justify-center"
+    >
       <div>
         <h2 class="mb-2">Smaller code stuff</h2>
         <ul>
           <li>
-            <a href="https://github.com/tomasz13nocon/twitch-sort-by-viewcount" target="_blank" class="external">Twitch userscript</a>
+            <a href="https://github.com/tomasz13nocon/twitch-sort-by-viewcount" target="_blank" class="external"
+              >Twitch userscript</a
+            >
           </li>
           <li>
-            <a href="https://github.com/tomasz13nocon/youtube-change-notification-wording" target="_blank" class="external">Youtube userscript</a>
+            <a href="https://github.com/tomasz13nocon/youtube-change-notification-wording" target="_blank" class="external"
+              >Youtube userscript</a
+            >
           </li>
           <li>
-            <a href="https://github.com/tomasz13nocon/camillemormal-recreation" target="_blank" class="external">Fancy website recreation (WIP)</a>
+            <a href="https://github.com/tomasz13nocon/camillemormal-recreation" target="_blank" class="external"
+              >Fancy website recreation (WIP)</a
+            >
           </li>
         </ul>
       </div>
@@ -73,10 +91,14 @@
         <h2 class="mb-2">OSS contributions</h2>
         <ul>
           <li>
-            <a href="https://github.com/spencermountain/wtf_wikipedia/pull/459" target="_blank" class="external">wtf_wikipedia - bug fixes</a>
+            <a href="https://github.com/spencermountain/wtf_wikipedia/pull/459" target="_blank" class="external"
+              >wtf_wikipedia - bug fixes</a
+            >
           </li>
           <li>
-            <a href="https://github.com/spencermountain/wtf_wikipedia/pull/460" target="_blank" class="external">wtf_wikipedia - more bug fixes</a>
+            <a href="https://github.com/spencermountain/wtf_wikipedia/pull/460" target="_blank" class="external"
+              >wtf_wikipedia - more bug fixes</a
+            >
           </li>
           <li>
             <a href="https://github.com/xorg62/tty-clock/pull/44" target="_blank" class="external">tty-clock - new feature</a>
@@ -99,14 +121,14 @@
       img=""
     >
       <p>
-        Almost finished, sizeable full stack website, where users (having declared they own the copyright of course) could upload links to 3rd party services
-        hosting movies.
+        Almost finished, sizeable full stack website, where users (having declared they own the copyright of course) could upload
+        links to 3rd party services hosting movies.
       </p>
       <p>There was voting, comments, and it pulled movie data from an API.</p>
       <br />
       <p>
-        This was my first big project, made in 2016/2017 (when AngularJS - yes, the first one - was still cool), and altough it went nowhere, it taught me a lot
-        about web dev and code architecture.
+        This was my first big project, made in 2016/2017 (when AngularJS - yes, the first one - was still cool), and altough it
+        went nowhere, it taught me a lot about web dev and code architecture.
       </p>
     </Project>
 
@@ -121,7 +143,11 @@
     >
       <p>"Don't touch the spikes" clone. Made in 2017.</p>
       <p>
-        <a href="https://user-images.githubusercontent.com/11395615/224403093-b117fecc-62eb-4c9e-8426-f8ddba4a0b82.webm" class="external" target="_blank">
+        <a
+          href="https://user-images.githubusercontent.com/11395615/224403093-b117fecc-62eb-4c9e-8426-f8ddba4a0b82.webm"
+          class="external"
+          target="_blank"
+        >
           Demo video
         </a>
       </p>

@@ -13,15 +13,15 @@
     recursion = false,
     img = "",
     more = "",
-    vertical = false,
-    intersecting: boolean,
-    intersectingFull: boolean;
+    vertical = false;
 
   let rotateX = 0,
     rotateY = 0,
     deg = 0,
     innerWidth: number,
-    innerHeight: number;
+    innerHeight: number,
+    intersecting: boolean,
+    intersectingFull: boolean;
 
   let contentDiv: HTMLElement;
   const verticalCardWidth = 320; // Mutating this breaks CardBgVertical
