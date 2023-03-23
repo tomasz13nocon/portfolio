@@ -14,7 +14,8 @@
     img = "",
     more = "",
     vertical = false,
-    intersecting: boolean;
+    intersecting: boolean,
+    intersectingFull: boolean;
 
   let rotateX = 0,
     rotateY = 0,
@@ -47,69 +48,71 @@
       class="absolute {vertical ? '' : 'cardbp:hidden'}"
       w={verticalCardWidth}
       h={verticalCardHeight}
-      img={intersecting ? img : ""}
+      img={intersectingFull ? img : ""}
     />
   {/key}
   {#if !vertical}
     <CardBg
       animate={intersecting}
       class="absolute w-[76rem] h-[calc(0.48046875_*_76rem)] hidden cardbp:block"
-      img={intersecting ? img : ""}
+      img={intersectingFull ? img : ""}
     />
   {/if}
-  <IntersectionObserver element={contentDiv} bind:intersecting threshold={0.1} once>
-    <div
-      bind:this={contentDiv}
-      class="h-full z-10 relative {vertical ? '' : 'cardbp:px-14 cardbp:py-20'} px-[12%] py-[13%]
-      {img ? 'pb-60xx' : ''} flex flex-col justify-between  md:max-xl:drop-shadow-[1px_1px_4px_black]"
-    >
-      <div>
-        <h3 class="text-4xl sm:text-5xl font-bold">{name}</h3>
-        {#if featured}
-          <div
-            class="mt-2 w-fit relative font-bold text-pri-6 before:bg-sec-0 before:border-2 before:border-sec-2 before:skew-x-[15deg] before:content-[''] before:block before:absolute before:w-full before:h-full before:-z-10"
-          >
-            <div class="px-4 py-1">Featured</div>
-          </div>
-        {/if}
-        <p class="{vertical ? '' : 'cardbp:w-[67%]'} mt-8">
-          <slot />
-        </p>
-        {#if more}
-          <a href="/{more}" class="w-fit block mt-4">READ MORE</a>
-        {/if}
-      </div>
-
-      <div class="my-16 cardbp:my-8">
-        <ul class="tech-stack-list flex flex-wrap gap-2">
-          {#each stack as tech}
-            <li class="text-xs text-center flex flex-col min-w-[4rem]">
-              <img
-                src={skills[tech].src}
-                alt="{tech} logo"
-                width="40"
-                height="40"
-                class="mx-auto {skills[tech].bg ? 'p-1' : ''}
-                mb-2 max-w-[2.5rem] max-h-10 flex-1 rounded"
-                style:background-color={skills[tech].bg}
-              />
-              {tech}
-            </li>
-          {/each}
-        </ul>
-      </div>
-
-      <div>
-        <div class="flex flex-wrap">
-          <a href={gh} target="_blank" class="external mr-4">Source code</a>
-          {#if website}
-            <a href={website} target="_blank" class="external">Live website</a>
-          {:else if recursion}
-            <RecursionJoke />
+  <IntersectionObserver element={contentDiv} bind:intersecting threshold={0.5} once>
+    <IntersectionObserver element={contentDiv} bind:intersecting={intersectingFull} threshold={0} once>
+      <div
+        bind:this={contentDiv}
+        class="h-full z-10 relative {vertical ? '' : 'cardbp:px-14 cardbp:py-20'} px-[12%] py-[13%]
+        {img ? 'pb-60xx' : ''} flex flex-col justify-between  md:max-xl:drop-shadow-[1px_1px_4px_black]"
+      >
+        <div>
+          <h3 class="text-4xl sm:text-5xl font-bold">{name}</h3>
+          {#if featured}
+            <div
+              class="mt-2 w-fit relative font-bold text-pri-6 before:bg-sec-0 before:border-2 before:border-sec-2 before:skew-x-[15deg] before:content-[''] before:block before:absolute before:w-full before:h-full before:-z-10"
+            >
+              <div class="px-4 py-1">Featured</div>
+            </div>
+          {/if}
+          <p class="{vertical ? '' : 'cardbp:w-[67%]'} mt-8">
+            <slot />
+          </p>
+          {#if more}
+            <a href="/{more}" class="w-fit block mt-4">READ MORE</a>
           {/if}
         </div>
+
+        <div class="my-16 cardbp:my-8">
+          <ul class="tech-stack-list flex flex-wrap gap-2">
+            {#each stack as tech}
+              <li class="text-xs text-center flex flex-col min-w-[4rem]">
+                <img
+                  src={skills[tech].src}
+                  alt="{tech} logo"
+                  width="40"
+                  height="40"
+                  class="mx-auto {skills[tech].bg ? 'p-1' : ''}
+                  mb-2 max-w-[2.5rem] max-h-10 flex-1 rounded"
+                  style:background-color={skills[tech].bg}
+                />
+                {tech}
+              </li>
+            {/each}
+          </ul>
+        </div>
+
+        <div>
+          <div class="flex flex-wrap">
+            <a href={gh} target="_blank" class="external mr-4">Source code</a>
+            {#if website}
+              <a href={website} target="_blank" class="external">Live website</a>
+            {:else if recursion}
+              <RecursionJoke />
+            {/if}
+          </div>
+        </div>
       </div>
-    </div>
+    </IntersectionObserver>
   </IntersectionObserver>
 </div>
 

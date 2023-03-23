@@ -127,7 +127,10 @@
     {#if show}
       <h1 in:typewriter class="z-10 text-xl md:text-2xl h-[1em] group-hover:[filter:url(#distort-text)]">Tomasz Nocoń</h1>
       <div class="flex">
-        <h2 in:typewriter={{ delay: 1200 }} class="text-5xl xs:text-6xl md:text-7xl min-h-[1em] mt-4 group-hover:[filter:url(#distort-text)]">
+        <h2
+          in:typewriter={{ delay: 1200 }}
+          class="text-5xl xs:text-6xl md:text-7xl min-h-[1em] mt-4 group-hover:[filter:url(#distort-text)]"
+        >
           Software engineer;
         </h2>
       </div>
@@ -163,7 +166,18 @@
           <!-- <feBlend in="qwe" in2="SourceGraphic" mode="hard-light" /> -->
         </filter>
       </defs>
-      <rect id="pill-rect" x="0" y="0" width="40" height="100" ry="30" rx="50" fill={$pillColor} filter="url(#lighting)" style:opacity="0.86" />
+      <rect
+        id="pill-rect"
+        x="0"
+        y="0"
+        width="40"
+        height="100"
+        ry="30"
+        rx="50"
+        fill={$pillColor}
+        filter="url(#lighting)"
+        style:opacity="0.86"
+      />
     </svg>
   </div>
 </section>
@@ -192,7 +206,9 @@
 
     <div class="md:translate-y-[5.5rem]">
       <h3 class="flex-1 font-bold text-3xl ">Competence</h3>
-      <p class="text-sm pt-4">Used in recent years, but not to the point of achieving expertise, or used extensively in the past</p>
+      <p class="text-sm pt-4">
+        Used in recent years, but not to the point of achieving expertise, or used extensively in the past
+      </p>
     </div>
 
     <div class="md:translate-y-[5.5rem]">
@@ -220,14 +236,14 @@
 
       <div class="px-6 w-auto text-center sm:text-left sm:w-[40rem] mx-auto leading-7 flex flex-col gap-6">
         <p>
-          I started writing code about 10 years ago, having some breaks in between. In total I have about 5 proper years of experience developing software
-          including 3-4 years of web dev. I was first introduced to C++ in a high school programming class, and instantly fell in love with the process of
-          programming.
+          I started writing code about 10 years ago, having some breaks in between. In total I have about 5 proper years of
+          experience developing software including 3-4 years of web dev. I was first introduced to C++ in a high school
+          programming class, and instantly fell in love with the process of programming.
         </p>
         <p>
           Besides that I enjoy travelling, I can solve a rubik's cube in under 30 seconds (PB 19s), and can play
-          <a href="https://www.youtube.com/watch?v=p2ct4xXak24" class="external" target="_blank"> Phantom of the Opera </a> at the original speed (even the Iron
-          Maiden usually play it slower live!)
+          <a href="https://www.youtube.com/watch?v=p2ct4xXak24" class="external" target="_blank"> Phantom of the Opera </a> at the
+          original speed (even the Iron Maiden usually play it slower live!)
         </p>
         <p>Currently I'm looking for a passionate team of developers to write great software with.</p>
       </div>
@@ -238,7 +254,7 @@
       <a href="https://stackoverflow.com/users/5459498/tomasz-noco%c5%84" target="_blank" class="external"> Stack Overflow </a>
       <a href="https://codepen.io/tomasz13nocon/pens/public" target="_blank" class="external">Codepen</a>
       <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">My dotfiles</a>
-      <!-- <a href="resume.pdf" target="_blank">My resume</a> -->
+      <!-- <a href="/resume">My resume</a> -->
     </footer>
   </div>
 </section>
