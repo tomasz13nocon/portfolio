@@ -16,6 +16,7 @@
     >
       <!-- more="starwarstl" -->
       <p>Virtualized timeline with lots of filters and search capabilities.</p>
+      <p>Serving 500+ monthly active users.</p>
       <p>
         The contents are automatically fetched, parsed and transformed from the Star Wars wiki daily via a
         <a
