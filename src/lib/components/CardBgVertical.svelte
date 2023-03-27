@@ -1,17 +1,15 @@
 <script lang="ts">
-  // Handwritten because why not
-
-    import { onMount } from "svelte";
+  // Handwritten because why not (but seriously because we need the card to scale to content)
 
   export let h = 620, w = 320, img = "", animate = false;
 
+  // short var names because we use them a lot in a path which makes it much more readable there
   let color = "green";
   let theta = 45 * (Math.PI/180);
   const cosT = Math.cos(theta);
-  const sinT = Math.sin(theta);
   let c = 15; // corner length
   let hc = c * 0.5; // half corner length
-  let hchyp = hc / cosT; // half corner lenght hypotenuse
+  let hchyp = hc / cosT; // half corner length hypotenuse
   let x = c - hchyp;
   let p = 10; // padding
   let sw = w - c*2 - p*2; // segment width
@@ -29,11 +27,10 @@
     animateTag.beginElement();
   }
 
-  const uid = Math.random(); // For 1 in every 18 quintillion users this UI will break.
+  const uid = Math.random(); // For 1 in every 18 quintillion users this UI might break.
 </script>
 
 {#if img}
-  <!-- <div class="w-full h-full absolute inset-0" style:background-image="url({img})" style:clip-path="url(#clip-{uid})"></div> -->
   <svg
     viewBox="0 0 {w} {h}"
     fill="none"
@@ -72,6 +69,24 @@
   filter="url(#shadow-{uid})"
   class={$$props.class}
 >
+  <defs>
+    <filter id="shadow-{uid}">
+      <feDropShadow dx=0 dy=0 stdDeviation="4.0" flood-color={color} />
+    </filter>
+
+    <linearGradient id="green-gradient-{uid}">
+      <stop stop-color="#184218" />
+      <stop offset="0.911458" stop-color="#007900" />
+    </linearGradient>
+
+    <path
+      d="M{p+c} {p} h {sw} l {c} {c}
+      v {sh} l {-c} {c} v {sh} l {c} {c} v {sh}
+      l {-c} {c} h {-sw} l {-c} {-c}
+      v {-sh} l {c} {-c} v {-sh} l {-c} {-c} v {-sh} Z"
+    />
+  </defs>
+
   <g
     stroke={color}
     stroke-width="1"
@@ -118,7 +133,7 @@
       d="M{w-p-c} {h-p-c-c} v {c} h {-c}
       m{c} 0 l {hc} {hc}"
     />
-  />
+  </g>
   {#if h > 280}
     <g
       stroke={color}
@@ -158,29 +173,5 @@
       l {-(c-g)} {c-g}
       Z"
     />
-    <!-- <path -->
-    <!--   fill="url(#green-gradient-{uid})" -->
-    <!--   d="M{w-p} {p+c+sh+g2} l {-(c-g)} {c-g} -->
-    <!--   v {sh-2*(g2-g)} -->
-    <!--   l {c-g} {c-g} -->
-    <!--   Z -->
-    <!--   " -->
-    <!-- /> -->
-    <!-- <path stroke="skyblue" d="M{p+c-g} {p+c+sh+c} v {g2-g} h {g} v {-g2+g}" /> -->
   </g>
-  <defs>
-    <filter id="shadow-{uid}">
-      <feDropShadow dx=0 dy=0 stdDeviation="4.0" flood-color={color} />
-    </filter>
-    <linearGradient id="green-gradient-{uid}">
-      <stop stop-color="#184218" />
-      <stop offset="0.911458" stop-color="#007900" />
-    </linearGradient>
-  </defs>
 </svg>
-
-<style>
-  svg {
-    /* border: 1px solid red; */
-  }
-</style>

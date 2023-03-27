@@ -37,12 +37,12 @@
       >
         Stack Overflow
       </a>
-      <a href="https://codepen.io/tomasz13nocon/pens/public" target="_blank" class="external"
-        >Codepen</a
-      >
-      <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external"
-        >My dotfiles</a
-      >
+      <a href="https://codepen.io/tomasz13nocon/pens/public" target="_blank" class="external">
+        Codepen
+      </a>
+      <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">
+        My dotfiles
+      </a>
       <a href="/resume.pdf">My resume</a>
     </footer>
   </div>

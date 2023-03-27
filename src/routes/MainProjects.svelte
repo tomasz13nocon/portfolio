@@ -3,7 +3,7 @@
   import Project from "./Project.svelte";
 </script>
 
-<Headline heading="Real Projects" subheading="Original products made for a real purpose." />
+<Headline heading="Main Projects" subheading="Original products made for a real purpose." />
 
 <Project
   name="Star Wars Media Timeline"
@@ -13,8 +13,7 @@
   website="https://starwarstl.com"
   img="/screenshots/starwarstl.png"
 >
-  <!-- more="starwarstl" -->
-  <p class="font-bold">If you're gonna look at one of my projects, make it this one.</p>
+  <!-- <p class="font-bold">If you're going to look at one of my projects, make it this one.</p> -->
   <p>Virtualized timeline with lots of filters and search capabilities.</p>
   <p>Serving 500+ monthly active users.</p>
   <p>
@@ -25,7 +24,7 @@
       target="_blank"
       class="external"
     >
-      complex Node.js script
+      complex Node.js data pipeline
     </a>.
   </p>
   <p>Currently working on adding authentication and converting the SPA to NextJS.</p>

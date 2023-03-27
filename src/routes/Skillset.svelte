@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { skillsGood, skillsMid } from "$lib/data";
+  import { skillsGood, skillsGreat, skillsMid, tools } from "$lib/skills";
   import HexGrid from "./HexGrid.svelte";
+  import SkillsetSection from "./SkillsetSection.svelte";
 
   export let sectionRef: HTMLElement;
 
@@ -8,49 +9,44 @@
 </script>
 
 <section
-  class="home-section py-24 text-center h-[88rem] md:h-[64rem]"
+  class="home-section py-24 text-center h-[144rem] md:h-[94rem]"
   bind:this={sectionRef}
   on:mousemove={mouseMoved}
 >
   <HexGrid bind:mouseMoved />
 
-  <div class="z-10 relative gap-8 grid md:grid-cols-2 max-w-6xl mx-auto px-8">
-    <h2 class="home-section-title w-full col-start-1 md:col-end-3">Skillset</h2>
+  <div class="z-10 relative max-w-6xl mx-auto px-8">
+    <h2 class="home-section-title w-full col-span-full">Skillset</h2>
 
-    <!-- <noscript> -->
-    <div class="">
-      <h3 class="flex-1 font-bold text-3xl">Expertise</h3>
-      <p class="text-sm pt-4">Used extensively in recent years</p>
-    </div>
+    <div class="gap-8 grid md:grid-cols-2 xl:grid-cols-2 mt-56 xs:mt-52 md:mt-48 items-end">
+      <SkillsetSection title="Expertise" skills={skillsGreat}>
+        Used extensively in recent years.
+        <br />
+        Can use confidently at any scale.
+      </SkillsetSection>
 
-    <div class="row-start-3 min-h-[18rem]">
-      <noscript>
-        <ul>
-          {#each skillsGood as skill}
-            <li class="">{skill.name}</li>
-          {/each}
-        </ul>
-      </noscript>
-    </div>
+      <SkillsetSection title="Competence" skills={skillsGood} lower>
+        Used in recent years.
+        <br />
+        Can use confidently, but still need to master advanced use cases.
+      </SkillsetSection>
 
-    <div class="md:translate-y-[5.5rem]">
-      <h3 class="flex-1 font-bold text-3xl ">Competence</h3>
-      <p class="text-sm pt-4">
-        Used in recent years, but not to the point of achieving expertise, or used extensively in
-        the past
-      </p>
-    </div>
+      <SkillsetSection title="Familiarity" skills={skillsMid}>
+        Used in the past.
+        <br />
+        Can use after refreshing my skills.
+      </SkillsetSection>
 
-    <div class="md:translate-y-[5.5rem]">
-      <noscript>
-        <ul>
-          {#each skillsMid as skill}
-            <li class="">{skill.name}</li>
-          {/each}
-        </ul>
-      </noscript>
+      <SkillsetSection title="Tools I use" skills={tools} lower>
+        Feel free to roast my config!
+        <br />
+        <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">
+          Dotfiles
+        </a>
+      </SkillsetSection>
     </div>
   </div>
+
   <div class="md:col-start-1 md:col-end-3 absolute bottom-24 w-full px-4 text-xl">
     ... and whatever else <em>You</em> need.<br />I learn <strong class="text-pri-2">fast</strong>.
   </div>

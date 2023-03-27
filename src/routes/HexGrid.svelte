@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { quadIn } from "svelte/easing";
-  import { skillsGood, skillsMid } from "$lib/data";
+  import { skillsGreat, skillsGood, skillsMid, tools } from "$lib/skills";
 
   export function mouseMoved(e: MouseEvent) {
-    mx = e.clientX;
-    my = e.clientY - canvas.getBoundingClientRect().top;
+    mouseX = e.clientX;
+    mouseY = e.clientY - canvas.getBoundingClientRect().top;
   }
 
   interface Skill {
@@ -41,8 +41,8 @@
     rafId: number,
     innerWidth: number,
     lastT = 0,
-    mx: number,
-    my: number,
+    mouseX: number,
+    mouseY: number,
     hexes: Hex[] = [];
 
   function resizeCanvas() {
@@ -57,8 +57,10 @@
 
   function initHexes(width: number, height: number) {
     hexes = [];
+    let skillsGreatAssigned = 0;
     let skillsGoodAssigned = 0;
     let skillsMidAssigned = 0;
+    let toolsAssigned = 0;
     let imgsLoaded = 0;
     let initDone = false;
     const vertical = innerWidth < 768;
@@ -71,7 +73,7 @@
     const iconsStartY = 440;
 
     function drawIfReady() {
-      if (++imgsLoaded === skillsMid.length + skillsGood.length && initDone) {
+      if (++imgsLoaded === skillsMid.length + skillsGood.length + skillsGreat.length && initDone) {
         drawStaticHexes(offscreenCtx);
       }
     }
@@ -82,22 +84,35 @@
       for (let x = i % 2 ? hexDX * 0.5 : 0; x < width + hexSize; x += hexDX) {
         let skill;
 
+        // TODO refactor
         if (
           y > iconsStartY &&
-          // y < 550 &&
           x > leftCenter - halfSkillsWidth &&
           x < leftCenter + halfSkillsWidth &&
+          skillsGreatAssigned < skillsGreat.length
+        ) {
+          skill = skillsGreat[skillsGreatAssigned++];
+        } else if (
+          y > (vertical ? iconsStartY + 450 : iconsStartY + 100) &&
+          x > rightCenter - halfSkillsWidth &&
+          x < rightCenter + halfSkillsWidth &&
           skillsGoodAssigned < skillsGood.length
         ) {
           skill = skillsGood[skillsGoodAssigned++];
         } else if (
-          y > (vertical ? iconsStartY + 450 : iconsStartY + 100) &&
-          // y < 550 &&
-          x > rightCenter - halfSkillsWidth &&
-          x < rightCenter + halfSkillsWidth &&
+          y > (vertical ? iconsStartY + 900 : iconsStartY + 500) &&
+          x > leftCenter - halfSkillsWidth &&
+          x < leftCenter + halfSkillsWidth &&
           skillsMidAssigned < skillsMid.length
         ) {
           skill = skillsMid[skillsMidAssigned++];
+        } else if (
+          y > (vertical ? iconsStartY + 1350 : iconsStartY + 600) &&
+          x > rightCenter - halfSkillsWidth &&
+          x < rightCenter + halfSkillsWidth &&
+          toolsAssigned < tools.length
+        ) {
+          skill = tools[toolsAssigned++];
         }
 
         if (skill) {
@@ -141,17 +156,22 @@
     color: string
   ) {
     const padding = 8,
-      fontSize = 14,
+      fontSize = 13,
       { width: textWidth } = ctx.measureText(text),
       rectHeight = fontSize + padding * 2;
 
-    // draw to the left if overflows
-    if (x + textWidth > innerWidth) {
+    // draw to the left if overflows screen
+    if (x + textWidth + padding * 2 > innerWidth) {
       x = x - textWidth - hexSize * 3.5;
+      if (x < 0) {
+        x = innerWidth - textWidth - padding * 2 - 12;
+        y += hexSize * 1.6;
+      }
     }
 
     ctx.fillStyle = bg;
-    ctx.fillRect(x, y - rectHeight * 0.5, textWidth + padding * 2, rectHeight);
+    ctx.roundRect(x, y - rectHeight * 0.5, textWidth + padding * 2, rectHeight, 4);
+    ctx.fill();
 
     ctx.font = `bold ${fontSize}px monospace`;
     ctx.textBaseline = "top";
@@ -209,7 +229,7 @@
         .toString(16)
         .padStart(2, "0");
 
-      let mouseIn = Math.abs(hex.x - mx) < hexDY && Math.abs(hex.y - my) < hexDY;
+      let mouseIn = Math.abs(hex.x - mouseX) < hexDY && Math.abs(hex.y - mouseY) < hexDY;
       if (mouseIn && !hovered) {
         hovered = true;
         hex.opacity = 1;
