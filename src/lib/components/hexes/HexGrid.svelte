@@ -1,27 +1,25 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { quadIn } from "svelte/easing";
-  import { skillsGreat, skillsGood, skillsMid, tools } from "$lib/skills";
+  import { skillsGreat, skillsGood, skillsMid, tools, type Skill } from "$lib/skills";
 
   export function mouseMoved(e: MouseEvent) {
     mouseX = e.clientX;
     mouseY = e.clientY - canvas.getBoundingClientRect().top;
   }
 
-  interface Skill {
-    name: string;
-    color: string;
-    src: string;
+  interface SkillImg extends Skill {
     img: HTMLImageElement;
-    dark: boolean;
   }
+
   interface Hex {
     x: number;
     y: number;
     opacity: number;
     opacityT: number;
-    skill?: Skill;
+    skill?: SkillImg;
   }
+
   type SkillHex = Required<Hex>;
 
   const a = Math.PI / 3,
@@ -50,28 +48,27 @@
     canvas.height = canvas.clientHeight;
     offscreenCanvas.width = canvas.clientWidth;
     offscreenCanvas.height = canvas.clientHeight;
-    // No idea why this raf is needed.
-    // Without it maximizing window and opening devtools doesn't cause correct recalculations
+    // Without this raf maximizing window or opening devtools doesn't cause correct recalculations
     requestAnimationFrame(() => initHexes(canvas.clientWidth, canvas.clientHeight));
   }
 
   function initHexes(width: number, height: number) {
     hexes = [];
-    let skillsGreatAssigned = 0;
-    let skillsGoodAssigned = 0;
-    let skillsMidAssigned = 0;
-    let toolsAssigned = 0;
-    let imgsLoaded = 0;
-    let initDone = false;
-    const vertical = innerWidth < 768;
-    const halfSkillsWidth = hexSize * 3;
-    const sectionWidth = Math.min(1080, innerWidth);
-    const leftCenter =
-      sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5);
-    const rightCenter =
-      sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5);
-    const iconsStartY = 440;
+    let skillsGreatAssigned = 0,
+      skillsGoodAssigned = 0,
+      skillsMidAssigned = 0,
+      toolsAssigned = 0,
+      imgsLoaded = 0,
+      initDone = false;
+    const vertical = innerWidth < 768,
+      halfSkillsWidth = hexSize * 3,
+      sectionWidth = Math.min(1080, innerWidth),
+      leftCenter = sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5),
+      rightCenter = sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5),
+      iconsStartY = 440,
+      sectionOffset = 450;
 
+    // Draw if both: all icons loaded and we've finished initializing
     function drawIfReady() {
       if (++imgsLoaded === skillsMid.length + skillsGood.length + skillsGreat.length && initDone) {
         drawStaticHexes(offscreenCtx);
@@ -93,21 +90,21 @@
         ) {
           skill = skillsGreat[skillsGreatAssigned++];
         } else if (
-          y > (vertical ? iconsStartY + 450 : iconsStartY + 100) &&
+          y > (vertical ? iconsStartY + sectionOffset : iconsStartY + 100) &&
           x > rightCenter - halfSkillsWidth &&
           x < rightCenter + halfSkillsWidth &&
           skillsGoodAssigned < skillsGood.length
         ) {
           skill = skillsGood[skillsGoodAssigned++];
         } else if (
-          y > (vertical ? iconsStartY + 900 : iconsStartY + 500) &&
+          y > (vertical ? iconsStartY + sectionOffset * 2 : iconsStartY + sectionOffset + 50) &&
           x > leftCenter - halfSkillsWidth &&
           x < leftCenter + halfSkillsWidth &&
           skillsMidAssigned < skillsMid.length
         ) {
           skill = skillsMid[skillsMidAssigned++];
         } else if (
-          y > (vertical ? iconsStartY + 1350 : iconsStartY + 600) &&
+          y > (vertical ? iconsStartY + sectionOffset * 3 : iconsStartY + sectionOffset + 150) &&
           x > rightCenter - halfSkillsWidth &&
           x < rightCenter + halfSkillsWidth &&
           toolsAssigned < tools.length

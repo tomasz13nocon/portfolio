@@ -1,6 +1,6 @@
 <script lang="ts">
   import { skillsGood, skillsGreat, skillsMid, tools } from "$lib/skills";
-  import HexGrid from "./HexGrid.svelte";
+  import HexGrid from "$lib/components/hexes/HexGrid.svelte";
   import SkillsetSection from "./SkillsetSection.svelte";
 
   export let sectionRef: HTMLElement;

@@ -3,7 +3,7 @@
 
   export let h = 620, w = 320, img = "", animate = false;
 
-  // short var names because we use them a lot in a path which makes it much more readable there
+  // short var names because we use them a lot in paths which makes it much more readable there
   let color = "green";
   let theta = 45 * (Math.PI/180);
   const cosT = Math.cos(theta);

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import CardBg from "$lib/components/CardBg.svelte";
-  import CardBgVertical from "$lib/components/CardBgVertical.svelte";
+  import CardBg from "$lib/components/cards/CardBg.svelte";
+  import CardBgVertical from "$lib/components/cards/CardBgVertical.svelte";
   import RecursionJoke from "./RecursionJoke.svelte";
   import { skills } from "$lib/skills";
   import IntersectionObserver from "svelte-intersection-observer";

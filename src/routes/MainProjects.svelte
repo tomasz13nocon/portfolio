@@ -24,8 +24,8 @@
       target="_blank"
       class="external"
     >
-      complex Node.js data pipeline
-    </a>.
+      complex Node.js pipeline</a
+    >.
   </p>
   <p>Currently working on adding authentication and converting the SPA to NextJS.</p>
 </Project>
