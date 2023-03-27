@@ -50,7 +50,8 @@
     canvas.height = canvas.clientHeight;
     offscreenCanvas.width = canvas.clientWidth;
     offscreenCanvas.height = canvas.clientHeight;
-    // No idea why this raf is needed. Without it maximizing window and opening devtools doesn't cause correct recalculations
+    // No idea why this raf is needed.
+    // Without it maximizing window and opening devtools doesn't cause correct recalculations
     requestAnimationFrame(() => initHexes(canvas.clientWidth, canvas.clientHeight));
   }
 
@@ -63,8 +64,10 @@
     const vertical = innerWidth < 768;
     const halfSkillsWidth = hexSize * 3;
     const sectionWidth = Math.min(1080, innerWidth);
-    const leftCenter = sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5);
-    const rightCenter = sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5);
+    const leftCenter =
+      sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5);
+    const rightCenter =
+      sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5);
     const iconsStartY = 440;
 
     function drawIfReady() {
@@ -74,7 +77,8 @@
     }
 
     for (let y = 0, i = 0; y < height; y += hexDY, i++) {
-      // We need i to do `i % 2` below, because `y / hexDY % 2` would not work due to floating point arithmetic inaccuracies
+      // We need to do `i % 2` below, because `y / hexDY % 2` would not work
+      // due to floating point arithmetic inaccuracies
       for (let x = i % 2 ? hexDX * 0.5 : 0; x < width + hexSize; x += hexDX) {
         let skill;
 
@@ -128,7 +132,14 @@
     ctx.fillStyle = "";
   }
 
-  function drawTooltip(ctx: CanvasRenderingContext2D, x: number, y: number, text: string, bg: string, color: string) {
+  function drawTooltip(
+    ctx: CanvasRenderingContext2D,
+    x: number,
+    y: number,
+    text: string,
+    bg: string,
+    color: string
+  ) {
     const padding = 8,
       fontSize = 14,
       { width: textWidth } = ctx.measureText(text),
@@ -163,7 +174,12 @@
     }
   }
 
-  function drawHexagon(ctx: CanvasRenderingContext2D, hex: { x: number; y: number }, r: number, color: string) {
+  function drawHexagon(
+    ctx: CanvasRenderingContext2D,
+    hex: { x: number; y: number },
+    r: number,
+    color: string
+  ) {
     ctx.strokeStyle = color;
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
@@ -173,11 +189,7 @@
     ctx.stroke();
   }
 
-  let perf = 0;
-  let perfs = 0,
-    frameN = 0;
   function draw(t: number) {
-    perf = performance.now();
     rafId = requestAnimationFrame(draw);
     let dt = t - lastT;
     lastT = t;
@@ -188,10 +200,6 @@
 
     // Offscreen Canvas improved frame perf 20x 😍
     ctx.drawImage(offscreenCanvas, 0, 0);
-
-    // ctx.font = "36px monospace";
-    // ctx.fillStyle = "white";
-    // ctx.fillText("Expertise", 100, 232);
 
     // allow only one hex to be hovered. Easier than figuring out intersection with hexes, and good enough
     let hovered = false;
@@ -244,16 +252,15 @@
     // Draw tooltip
     for (let hex of drawTooltipSchedule) {
       if (hex.skill) {
-        drawTooltip(ctx, hex.x + hexSize * 1.5, hex.y, hex.skill.name.toUpperCase(), hex.skill.color, hex.skill.dark ? "white" : "black");
+        drawTooltip(
+          ctx,
+          hex.x + hexSize * 1.5,
+          hex.y,
+          hex.skill.name.toUpperCase(),
+          hex.skill.color,
+          hex.skill.dark ? "white" : "black"
+        );
       }
-    }
-
-    perfs += performance.now() - perf;
-    frameN++;
-    if (frameN > 60) {
-      // console.log(perfs / 60);
-      perfs = 0;
-      frameN = 0;
     }
   }
 
