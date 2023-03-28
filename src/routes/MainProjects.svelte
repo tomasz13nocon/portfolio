@@ -9,7 +9,7 @@
   name="Star Wars Media Timeline"
   featured
   stack={["React", "Sass", "Node.js", "MongoDB", "Express.js", "AWS EC2", "AWS S3"]}
-  gh="https://github.com/tomasz13nocon/swtimeline"
+  gh="https://github.com/tomasz13nocon/starwarstl"
   website="https://starwarstl.com"
   img="/screenshots/starwarstl.png"
 >
@@ -20,14 +20,14 @@
     The contents are automatically fetched, parsed and transformed from the Star Wars wiki daily via
     a
     <a
-      href="https://github.com/tomasz13nocon/swtimeline-server/blob/master/fetch_timeline.js"
+      href="https://github.com/tomasz13nocon/starwarstl-fetch/blob/master/src/index.js"
       target="_blank"
       class="external"
     >
       complex Node.js pipeline</a
     >.
   </p>
-  <p>Currently working on adding authentication and converting the SPA to NextJS.</p>
+  <p>Currently working on adding authentication and refactoring the codebase.</p>
 </Project>
 
 <Project
