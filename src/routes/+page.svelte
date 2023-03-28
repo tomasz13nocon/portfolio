@@ -13,11 +13,8 @@
 </svelte:head>
 
 <noscript>
-  <div
-    class="fixed z-50 p-2 left-1/2 -translate-x-1/2 w-80 sm:w-[36rem] text-sm text-center bg-sec-5"
-  >
-    You're viewing a barebones version of this website. Please enable JavaScript for optimal
-    experience.
+  <div class="fixed z-50 p-2 left-1/2 -translate-x-1/2 w-full text-sm text-center bg-sec-5">
+    Javascript is disabled. You're viewing a barebones version of this website.
   </div>
 </noscript>
 

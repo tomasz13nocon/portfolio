@@ -2,7 +2,7 @@
   import CardBg from "$lib/components/cards/CardBg.svelte";
   import CardBgVertical from "$lib/components/cards/CardBgVertical.svelte";
   import RecursionJoke from "./RecursionJoke.svelte";
-  import { skills } from "$lib/skills";
+  import { baseSkills } from "$lib/skills";
   import IntersectionObserver from "svelte-intersection-observer";
 
   export let name: string,
@@ -99,13 +99,13 @@
             {#each stack as tech}
               <li class="text-xs text-center flex flex-col min-w-[4rem]">
                 <img
-                  src={skills[tech].src}
+                  src={baseSkills[tech].src}
                   alt="{tech} logo"
                   width="40"
                   height="40"
-                  class="mx-auto {skills[tech].bg ? 'p-1' : ''}
+                  class="mx-auto {baseSkills[tech].bg ? 'p-1' : ''}
                   mb-2 max-w-[2.5rem] max-h-10 flex-1 rounded"
-                  style:background-color={skills[tech].bg}
+                  style:background-color={baseSkills[tech].bg}
                 />
                 {tech}
               </li>

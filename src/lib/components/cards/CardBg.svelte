@@ -24,6 +24,7 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     class={`${$$props.class} absolute right-0`}
+    aria-hidden="true"
   >
     <defs>
       <clipPath id="clip-{uid}">
@@ -62,6 +63,7 @@
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   class={$$props.class}
+  aria-hidden="true"
 >
   <style>
     .text2 {

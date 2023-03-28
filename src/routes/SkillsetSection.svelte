@@ -15,14 +15,14 @@
       <slot />
     </p>
   </div>
-</div>
 
-<noscript>
-  <div class="row-start-3 min-h-[18rem]">
-    <ul>
-      {#each skills as skill}
-        <li>{skill.name}</li>
-      {/each}
-    </ul>
-  </div>
-</noscript>
+  <noscript>
+    <div class="absolute top-16 left-1/2 -translate-x-1/2">
+      <ul>
+        {#each skills as skill}
+          <li>{skill.name}</li>
+        {/each}
+      </ul>
+    </div>
+  </noscript>
+</div>

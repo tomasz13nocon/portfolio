@@ -36,6 +36,7 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     class={`${$$props.class} absolute`}
+    aria-hidden="true"
   >
     <defs>
       <clipPath id="clip-{uid}">
@@ -68,6 +69,7 @@
 <svg viewBox="0 0 {w} {h}"
   filter="url(#shadow-{uid})"
   class={$$props.class}
+  aria-hidden="true"
 >
   <defs>
     <filter id="shadow-{uid}">

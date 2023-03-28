@@ -7,6 +7,9 @@
 
   export let secondSection: HTMLElement;
 
+  const heading1 = "Tomasz Nocoń";
+  const heading2 = "Software engineer;";
+
   let show = false;
   onMount(() => (show = true));
 
@@ -65,22 +68,26 @@
       "
     />
     <noscript>
-      <h1 class="text-2xl">Tomasz Nocoń</h1>
-      <h2 class="text-5xl xs:text-6xl md:text-7xl mt-4">Software engineer;</h2>
+      <h1 class="text-2xl">{heading1}</h1>
+      <h2 class="text-5xl xs:text-6xl md:text-7xl mt-4">{heading2}</h2>
     </noscript>
     {#if show}
       <h1
-        in:typewriter
         class="z-10 text-xl md:text-2xl h-[1em] group-hover:[filter:url(#distort-text)]"
+        aria-label={heading1}
       >
-        Tomasz Nocoń
+        <span in:typewriter aria-hidden="true">
+          {heading1}
+        </span>
       </h1>
       <div class="flex">
         <h2
-          in:typewriter={{ delay: 1200 }}
           class="text-5xl xs:text-6xl md:text-7xl min-h-[1em] mt-4 group-hover:[filter:url(#distort-text)]"
+          aria-label={heading2}
         >
-          Software engineer;
+          <span in:typewriter={{ delay: 1200 }} aria-hidden="true">
+            {heading2}
+          </span>
         </h2>
       </div>
     {:else}
@@ -95,16 +102,5 @@
 <style>
   .text-shadow-green {
     text-shadow: 0 0 10px #94f475;
-  }
-  .pill-bob {
-    animation: bob 1.2s infinite alternate ease-in-out;
-  }
-  @keyframes bob {
-    0% {
-      transform: translate(-50%, -17%);
-    }
-    100% {
-      transform: translate(-50%, 17%);
-    }
   }
 </style>

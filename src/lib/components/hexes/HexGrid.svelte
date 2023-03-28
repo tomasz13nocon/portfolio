@@ -1,15 +1,12 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { quadIn } from "svelte/easing";
-  import { skillsGreat, skillsGood, skillsMid, tools, type Skill } from "$lib/skills";
+  import { skillCount, type SkillImg } from "$lib/skills";
+  import { createSkillGetter } from "./Grid";
 
   export function mouseMoved(e: MouseEvent) {
     mouseX = e.clientX;
     mouseY = e.clientY - canvas.getBoundingClientRect().top;
-  }
-
-  interface SkillImg extends Skill {
-    img: HTMLImageElement;
   }
 
   interface Hex {
@@ -22,12 +19,12 @@
 
   type SkillHex = Required<Hex>;
 
-  const a = Math.PI / 3,
+  const a = Math.PI / 3, // 60 deg = hex inside angle
     hexSize = 40,
     iconSize = hexSize * 1.2,
     halfIconSize = iconSize * 0.5,
-    hexDX = hexSize * (Math.cos(a) * 2) + hexSize * 2, //  \_/¯
-    hexDY = hexSize * Math.sin(a), // \
+    hexDX = hexSize * (Math.cos(a) * 2) + hexSize * 2, // distance visually:  \_/¯
+    hexDY = hexSize * Math.sin(a), // distance visually: \
     colors = { default: "#232721", hover: "#007900", shadow: "green", bg: "#0F0F0E" },
     dummyOffset = -9999,
     duration = 700,
@@ -54,71 +51,25 @@
 
   function initHexes(width: number, height: number) {
     hexes = [];
-    let skillsGreatAssigned = 0,
-      skillsGoodAssigned = 0,
-      skillsMidAssigned = 0,
-      toolsAssigned = 0,
-      imgsLoaded = 0,
-      initDone = false;
-    const vertical = innerWidth < 768,
-      halfSkillsWidth = hexSize * 3,
-      sectionWidth = Math.min(1080, innerWidth),
-      leftCenter = sectionWidth * (vertical ? 0.5 : 0.25) + Math.max(0, (innerWidth - 1080) * 0.5),
-      rightCenter = sectionWidth * (vertical ? 0.5 : 0.75) + Math.max(0, (innerWidth - 1080) * 0.5),
-      iconsStartY = 440,
-      sectionOffset = 450;
+    let imgsLoaded = 0;
 
     // Draw if both: all icons loaded and we've finished initializing
     function drawIfReady() {
-      if (++imgsLoaded === skillsMid.length + skillsGood.length + skillsGreat.length && initDone) {
+      if (++imgsLoaded === skillCount + 1) {
         drawStaticHexes(offscreenCtx);
       }
     }
 
+    let getNextSkill = createSkillGetter(innerWidth, hexSize);
     for (let y = 0, i = 0; y < height; y += hexDY, i++) {
       // We need to do `i % 2` below, because `y / hexDY % 2` would not work
       // due to floating point arithmetic inaccuracies
       for (let x = i % 2 ? hexDX * 0.5 : 0; x < width + hexSize; x += hexDX) {
-        let skill;
-
-        // TODO refactor
-        if (
-          y > iconsStartY &&
-          x > leftCenter - halfSkillsWidth &&
-          x < leftCenter + halfSkillsWidth &&
-          skillsGreatAssigned < skillsGreat.length
-        ) {
-          skill = skillsGreat[skillsGreatAssigned++];
-        } else if (
-          y > (vertical ? iconsStartY + sectionOffset : iconsStartY + 100) &&
-          x > rightCenter - halfSkillsWidth &&
-          x < rightCenter + halfSkillsWidth &&
-          skillsGoodAssigned < skillsGood.length
-        ) {
-          skill = skillsGood[skillsGoodAssigned++];
-        } else if (
-          y > (vertical ? iconsStartY + sectionOffset * 2 : iconsStartY + sectionOffset + 50) &&
-          x > leftCenter - halfSkillsWidth &&
-          x < leftCenter + halfSkillsWidth &&
-          skillsMidAssigned < skillsMid.length
-        ) {
-          skill = skillsMid[skillsMidAssigned++];
-        } else if (
-          y > (vertical ? iconsStartY + sectionOffset * 3 : iconsStartY + sectionOffset + 150) &&
-          x > rightCenter - halfSkillsWidth &&
-          x < rightCenter + halfSkillsWidth &&
-          toolsAssigned < tools.length
-        ) {
-          skill = tools[toolsAssigned++];
-        }
-
+        let skill = getNextSkill(x, y);
         if (skill) {
-          let img = new Image();
-          skill = { ...skill, img };
-          img.onload = drawIfReady;
-          img.src = skill.src;
+          skill.img.onload = drawIfReady;
+          skill.img.src = skill.src;
         }
-
         hexes.push({
           x,
           y,
@@ -129,9 +80,6 @@
       }
     }
 
-    initDone = true;
-    // Not called as img onload so don't count this invocation as a loaded image
-    imgsLoaded--;
     drawIfReady();
   }
 
@@ -157,9 +105,10 @@
       { width: textWidth } = ctx.measureText(text),
       rectHeight = fontSize + padding * 2;
 
-    // draw to the left if overflows screen
+    // draw to the left if the tooltip overflows screen
     if (x + textWidth + padding * 2 > innerWidth) {
       x = x - textWidth - hexSize * 3.5;
+      // draw below if it still overflows
       if (x < 0) {
         x = innerWidth - textWidth - padding * 2 - 12;
         y += hexSize * 1.6;
@@ -182,16 +131,16 @@
     for (let hex of hexes) {
       if (hex.skill) {
         ctx.lineWidth = hexThickness + 2;
-        drawHexagon(ctx, hex, hexSize, colors.default);
+        drawHex(ctx, hex, hexSize, colors.default);
         ctx.lineWidth = hexThickness;
         drawSkillImg(ctx, hex as SkillHex, hex.skill.color);
       } else {
-        drawHexagon(ctx, hex, hexSize, colors.default);
+        drawHex(ctx, hex, hexSize, colors.default);
       }
     }
   }
 
-  function drawHexagon(
+  function drawHex(
     ctx: CanvasRenderingContext2D,
     hex: { x: number; y: number },
     r: number,
@@ -204,6 +153,19 @@
     }
     ctx.closePath();
     ctx.stroke();
+  }
+
+  function drawShadow(ctx: CanvasRenderingContext2D, hex: Hex, color: string) {
+    ctx.shadowColor = hex.skill?.color ?? colors.shadow;
+    ctx.shadowBlur = 10;
+    ctx.lineWidth = 11;
+    ctx.translate(dummyOffset, 0);
+    ctx.shadowOffsetX = -dummyOffset;
+    drawHex(ctx, hex, hexSize, color);
+    ctx.translate(-dummyOffset, 0);
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = hexThickness;
+    ctx.shadowOffsetX = 0;
   }
 
   function draw(t: number) {
@@ -245,24 +207,14 @@
         if (hex.skill) {
           ctx.lineWidth = hexThickness + 2;
         }
-        drawHexagon(ctx, hex, hexSize, (hex.skill?.color ?? colors.hover) + opacityHexa);
+        drawHex(ctx, hex, hexSize, (hex.skill?.color ?? colors.hover) + opacityHexa);
 
         // Draw skill hex animation
         if (hex.skill) {
           drawSkillImg(ctx, hex as SkillHex, colors.bg + opacityHexa);
         }
 
-        // Draw shadow
-        ctx.shadowColor = hex.skill?.color ?? colors.shadow;
-        ctx.shadowBlur = 10;
-        ctx.lineWidth = 11;
-        ctx.translate(dummyOffset, 0);
-        ctx.shadowOffsetX = -dummyOffset;
-        drawHexagon(ctx, hex, hexSize, "#000000" + opacityHexa);
-        ctx.translate(-dummyOffset, 0);
-        ctx.shadowBlur = 0;
-        ctx.lineWidth = hexThickness;
-        ctx.shadowOffsetX = 0;
+        drawShadow(ctx, hex, "#000000" + opacityHexa);
       }
     }
 

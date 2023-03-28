@@ -85,3 +85,17 @@
     />
   </svg>
 </div>
+
+<style>
+  .pill-bob {
+    animation: bob 1.2s infinite alternate ease-in-out;
+  }
+  @keyframes bob {
+    0% {
+      transform: translate(-50%, -17%);
+    }
+    100% {
+      transform: translate(-50%, 17%);
+    }
+  }
+</style>
