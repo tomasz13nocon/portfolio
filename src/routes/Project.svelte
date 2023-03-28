@@ -114,8 +114,8 @@
         </div>
 
         <div>
-          <div class="flex flex-wrap">
-            <a href={gh} target="_blank" class="external mr-8">Source code</a>
+          <div class="flex flex-wrap gap-x-8 gap-y-4">
+            <a href={gh} target="_blank" class="external">Source code</a>
             {#if website}
               <a href={website} target="_blank" class="external">Live website</a>
             {:else if recursion}
