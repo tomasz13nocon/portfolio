@@ -43,7 +43,7 @@
       <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">
         My dotfiles
       </a>
-      <a href="/resume.pdf">My resume</a>
+      <!-- <a href="/resume.pdf">My resume</a> -->
     </footer>
   </div>
 </section>

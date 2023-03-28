@@ -9,7 +9,7 @@
   name="Star Wars Media Timeline"
   featured
   stack={["React", "Sass", "Node.js", "MongoDB", "Express.js", "AWS EC2", "AWS S3"]}
-  gh="https://github.com/tomasz13nocon/starwarstl"
+  gh="https://github.com/tomasz13nocon/starwarstl-client"
   website="https://starwarstl.com"
   img="/screenshots/starwarstl.png"
 >
