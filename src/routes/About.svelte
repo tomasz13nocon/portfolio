@@ -41,9 +41,9 @@
         Codepen
       </a>
       <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">
-        My dotfiles
+        Dotfiles
       </a>
-      <!-- <a href="/resume.pdf">My resume</a> -->
+      <a href="/resume.pdf">Resume</a>
     </footer>
   </div>
 </section>
