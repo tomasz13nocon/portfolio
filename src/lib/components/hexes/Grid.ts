@@ -10,21 +10,22 @@ type SkillPos = Record<SkillType, number>;
 type ScreenSize = "sm" | "md";
 
 const iconsStartY = 440,
-  sectionOffset = 450,
+  mdOffset = 500,
+  smOffset = 450,
   yPos: Record<ScreenSize, SkillPos> = {
     // four one-long rows
     sm: {
       great: iconsStartY,
-      good: iconsStartY + sectionOffset,
-      mid: iconsStartY + sectionOffset * 2,
-      tools: iconsStartY + sectionOffset * 3,
+      good: iconsStartY + smOffset,
+      mid: iconsStartY + smOffset * 2,
+      tools: iconsStartY + smOffset * 3,
     },
     // two two-long rows
     md: {
       great: iconsStartY,
       good: iconsStartY + 100,
-      mid: iconsStartY + sectionOffset + 50,
-      tools: iconsStartY + sectionOffset + 150,
+      mid: iconsStartY + mdOffset,
+      tools: iconsStartY + mdOffset + 100,
     },
   };
 
@@ -45,7 +46,7 @@ export function createSkillGetter(innerWidth: number, hexSize: number) {
     midCount = 0,
     toolsCount = 0;
 
-  return function (x: number, y: number): SkillImg | undefined {
+  return function(x: number, y: number): SkillImg | undefined {
     const leftFit = x > leftCenter - halfSkillsWidth && x < leftCenter + halfSkillsWidth,
       rightFit = x > rightCenter - halfSkillsWidth && x < rightCenter + halfSkillsWidth;
 

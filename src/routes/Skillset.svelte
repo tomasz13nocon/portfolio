@@ -18,30 +18,23 @@
   <div class="z-10 relative max-w-6xl mx-auto px-8">
     <h2 class="home-section-title w-full col-span-full">Skillset</h2>
 
-    <div class="gap-8 grid md:grid-cols-2 xl:grid-cols-2 mt-56 xs:mt-52 md:mt-48 items-end">
-      <SkillsetSection title="Expertise" skills={skills.great}>
-        Used extensively in recent years.
-        <br />
+    <div class="gap-8 grid md:grid-cols-2 mt-56 xs:mt-48 md:mt-44 items-end">
+      <SkillsetSection title="Used extensively" skills={skills.great}>
         Can use confidently at any scale.
       </SkillsetSection>
 
-      <SkillsetSection title="Competence" skills={skills.good} lower>
-        Used in recent years.
-        <br />
+      <SkillsetSection title="Used frequently" skills={skills.good} lower>
         Can use confidently, but still need to master advanced use cases.
       </SkillsetSection>
 
-      <SkillsetSection title="Familiarity" skills={skills.mid}>
-        Used in the past.
-        <br />
-        Can use after refreshing my skills.
+      <SkillsetSection title="Used in the past" skills={skills.mid}>
+        Can use confidently after refreshing my skills.
       </SkillsetSection>
 
       <SkillsetSection title="Tools I use" skills={skills.tools} lower>
-        Feel free to roast my config!
-        <br />
+        Feel free to roast
         <a href="https://github.com/tomasz13nocon/dotfiles" target="_blank" class="external">
-          Dotfiles
+          my config
         </a>
       </SkillsetSection>
     </div>
