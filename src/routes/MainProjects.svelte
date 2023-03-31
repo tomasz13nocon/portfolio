@@ -3,7 +3,7 @@
   import Project from "./Project.svelte";
 </script>
 
-<Headline heading="Main Projects" subheading="Original products made for a real purpose." />
+<Headline heading="Projects" />
 
 <Project
   name="Star Wars Media Timeline"
@@ -13,7 +13,6 @@
   website="https://starwarstl.com"
   img="/screenshots/starwarstl.png"
 >
-  <!-- <p class="font-bold">If you're going to look at one of my projects, make it this one.</p> -->
   <p>Virtualized timeline with lots of filters and search capabilities.</p>
   <p>Serving 500+ monthly active users.</p>
   <p>
@@ -24,7 +23,7 @@
       target="_blank"
       class="external"
     >
-      complex Node.js pipeline</a
+      Node.js data processing pipeline</a
     >.
   </p>
   <p>Currently working on adding authentication and refactoring the codebase.</p>
@@ -47,7 +46,7 @@
 
 <Project
   name="Software engineer's portfolio"
-  stack={["Svelte", "SvelteKit", "Tailwind"]}
+  stack={["Svelte", "SvelteKit", "TypeScript", "Tailwind"]}
   gh="https://github.com/tomasz13nocon/portfolio"
   more=""
   recursion

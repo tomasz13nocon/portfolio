@@ -35,7 +35,7 @@
       <linearGradient id="gradient-{uid}">
         <stop offset="0%" stop-color="#0F0F0EFF" />
         <stop offset="30%" stop-color="#0F0F0ECC" />
-        <stop offset="55%" stop-color="#0F0F0E99" />
+        <stop offset="55%" stop-color="#0F0F0E88" />
       </linearGradient>
     </defs>
     <image
