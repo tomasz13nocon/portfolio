@@ -30,7 +30,7 @@
 </Project>
 
 <Project
-  name="Karolina's portfolio"
+  name="Photographer's portfolio"
   stack={["Astro", "Vanilla JS", "Tailwind", "NetlifyCMS"]}
   gh="https://github.com/tomasz13nocon/karolina"
   website="https://beta--cute-pixie-d384de.netlify.app/"
