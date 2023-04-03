@@ -33,14 +33,14 @@
   name="Photographer's portfolio"
   stack={["Astro", "Vanilla JS", "Tailwind", "NetlifyCMS"]}
   gh="https://github.com/tomasz13nocon/karolina"
-  website="https://beta--cute-pixie-d384de.netlify.app/"
+  website="https://karolinanocon.netlify.app/"
   img="/screenshots/karolina.png"
   more=""
   vertical
 >
   <p>
     Simple portfolio website for a photographer. Statically generated with blogging capabilities and
-    a basic CMS setup. Fullscreen image viewer written from scratch in vanilla JS.
+    a CMS setup. Fullscreen image viewer written from scratch in vanilla JS.
   </p>
 </Project>
 
