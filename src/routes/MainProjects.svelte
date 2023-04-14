@@ -31,7 +31,7 @@
 
 <Project
   name="Photographer's portfolio"
-  stack={["Astro", "Vanilla JS", "Tailwind", "NetlifyCMS"]}
+  stack={["Astro", "TypeScript", "Tailwind", "NetlifyCMS"]}
   gh="https://github.com/tomasz13nocon/karolina"
   website="https://karolinanocon.netlify.app/"
   img="/screenshots/karolina.png"
@@ -40,7 +40,7 @@
 >
   <p>
     Simple portfolio website for a photographer. Statically generated with blogging capabilities and
-    a CMS setup. Fullscreen image viewer written from scratch in vanilla JS.
+    a CMS setup. Designed by the website owner.
   </p>
 </Project>
 
